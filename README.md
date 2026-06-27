@@ -53,7 +53,7 @@ APK: `app/build/outputs/apk/debug/app-debug.apk`
 
 | Роль | Email | Пароль |
 |------|-------|--------|
-| Студент | student-001@school.ru … student-036@school.ru | pass |
+| Студент | student-001@school.ru … student-036@school.ru | 123456 |
 | Учитель | ivanov@school.ru (и ещё 9) | 123456 |
 | Админ | admin@school.ru | 123456 |
 
