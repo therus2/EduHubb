@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">EduHub</string>
+    <string name="bottomnavigation_schedule">Расписание</string>
+    <string name="bottomnavigation_marks">Оценки</string>
+    <string name="bottomnavigation_tasks">Задания</string>
+    <string name="bottomnavigation_school">Школа</string>
+
+    
+    <string name="avatar_change_title">Фото профиля</string>
+    <string name="avatar_take_photo">Сделать фото</string>
+    <string name="avatar_choose_gallery">Выбрать из галереи</string>
+    <string name="avatar_delete">Удалить фото</string>
+    <string name="avatar_cancel">Отмена</string>
+    <string name="avatar_save">Сохранить</string>
+    <string name="avatar_edit_title">Редактировать фото</string>
+    <string name="avatar_edit_hint">Масштабируйте и переместите фото, чтобы разместить лицо в центре круга</string>
+    <string name="avatar_rotate_left">Повернуть против часовой</string>
+    <string name="avatar_rotate_right">Повернуть по часовой</string>
+</resources>

@@ -1,0 +1,1979 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="reseed-cleanup" author="eduhab">
+        <comment>Clear all operational data before re-inserting</comment>
+        <delete tableName="user_settings"/>
+        <delete tableName="announcement_reads"/>
+        <delete tableName="notifications"/>
+        <delete tableName="announcements"/>
+        <delete tableName="homework_completions"/>
+        <delete tableName="assignments"/>
+        <delete tableName="attendance"/>
+        <delete tableName="grades"/>
+        <delete tableName="schedule_breaks"/>
+        <delete tableName="lessons"/>
+
+        <sql>ALTER TABLE lessons ALTER COLUMN id RESTART WITH 1</sql>
+        <sql>ALTER TABLE schedule_breaks ALTER COLUMN id RESTART WITH 1</sql>
+        <sql>ALTER TABLE grades ALTER COLUMN id RESTART WITH 1</sql>
+        <sql>ALTER TABLE attendance ALTER COLUMN id RESTART WITH 1</sql>
+        <sql>ALTER TABLE assignments ALTER COLUMN id RESTART WITH 1</sql>
+        <sql>ALTER TABLE homework_completions ALTER COLUMN id RESTART WITH 1</sql>
+        <sql>ALTER TABLE announcements ALTER COLUMN id RESTART WITH 1</sql>
+        <sql>ALTER TABLE announcement_reads ALTER COLUMN id RESTART WITH 1</sql>
+        <sql>ALTER TABLE notifications ALTER COLUMN id RESTART WITH 1</sql>
+    </changeSet>
+
+    <changeSet id="reseed-lessons-group1" author="eduhab">
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="1"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="day_of_week" valueNumeric="1"/>
+            <column name="start_time" value="08:30:00"/><column name="end_time" value="09:15:00"/>
+            <column name="classroom" value="201"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="1"/><column name="subject_id" valueNumeric="3"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="day_of_week" valueNumeric="1"/>
+            <column name="start_time" value="09:25:00"/><column name="end_time" value="10:10:00"/>
+            <column name="classroom" value="105"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="1"/><column name="subject_id" valueNumeric="7"/>
+            <column name="teacher_id" valueNumeric="6"/><column name="day_of_week" valueNumeric="1"/>
+            <column name="start_time" value="10:25:00"/><column name="end_time" value="11:10:00"/>
+            <column name="classroom" value="301"/><column name="lesson_type" value="PRACTICAL"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="1"/><column name="subject_id" valueNumeric="13"/>
+            <column name="teacher_id" valueNumeric="11"/><column name="day_of_week" valueNumeric="1"/>
+            <column name="start_time" value="11:25:00"/><column name="end_time" value="12:10:00"/>
+            <column name="classroom" value="Спортзал"/><column name="lesson_type" value="PRACTICAL"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="1"/><column name="subject_id" valueNumeric="9"/>
+            <column name="teacher_id" valueNumeric="8"/><column name="day_of_week" valueNumeric="1"/>
+            <column name="start_time" value="12:20:00"/><column name="end_time" value="13:05:00"/>
+            <column name="classroom" value="206"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="1"/><column name="subject_id" valueNumeric="5"/>
+            <column name="teacher_id" valueNumeric="4"/><column name="day_of_week" valueNumeric="2"/>
+            <column name="start_time" value="08:30:00"/><column name="end_time" value="09:15:00"/>
+            <column name="classroom" value="204"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="1"/><column name="subject_id" valueNumeric="2"/>
+            <column name="teacher_id" valueNumeric="2"/><column name="day_of_week" valueNumeric="2"/>
+            <column name="start_time" value="09:25:00"/><column name="end_time" value="10:10:00"/>
+            <column name="classroom" value="201"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="1"/><column name="subject_id" valueNumeric="4"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="day_of_week" valueNumeric="2"/>
+            <column name="start_time" value="10:25:00"/><column name="end_time" value="11:10:00"/>
+            <column name="classroom" value="105"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="1"/><column name="subject_id" valueNumeric="9"/>
+            <column name="teacher_id" valueNumeric="8"/><column name="day_of_week" valueNumeric="2"/>
+            <column name="start_time" value="11:25:00"/><column name="end_time" value="12:10:00"/>
+            <column name="classroom" value="206"/><column name="lesson_type" value="SEMINAR"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="1"/><column name="subject_id" valueNumeric="14"/>
+            <column name="teacher_id" valueNumeric="11"/><column name="day_of_week" valueNumeric="2"/>
+            <column name="start_time" value="12:20:00"/><column name="end_time" value="13:05:00"/>
+            <column name="classroom" value="101"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="1"/><column name="subject_id" valueNumeric="6"/>
+            <column name="teacher_id" valueNumeric="5"/><column name="day_of_week" valueNumeric="3"/>
+            <column name="start_time" value="08:30:00"/><column name="end_time" value="09:15:00"/>
+            <column name="classroom" value="207"/><column name="lesson_type" value="PRACTICAL"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="1"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="day_of_week" valueNumeric="3"/>
+            <column name="start_time" value="09:25:00"/><column name="end_time" value="10:10:00"/>
+            <column name="classroom" value="201"/><column name="lesson_type" value="PRACTICAL"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="1"/><column name="subject_id" valueNumeric="10"/>
+            <column name="teacher_id" valueNumeric="9"/><column name="day_of_week" valueNumeric="3"/>
+            <column name="start_time" value="10:25:00"/><column name="end_time" value="11:10:00"/>
+            <column name="classroom" value="205"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="1"/><column name="subject_id" valueNumeric="12"/>
+            <column name="teacher_id" valueNumeric="10"/><column name="day_of_week" valueNumeric="3"/>
+            <column name="start_time" value="11:25:00"/><column name="end_time" value="12:10:00"/>
+            <column name="classroom" value="209"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="1"/><column name="subject_id" valueNumeric="3"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="day_of_week" valueNumeric="4"/>
+            <column name="start_time" value="08:30:00"/><column name="end_time" value="09:15:00"/>
+            <column name="classroom" value="105"/><column name="lesson_type" value="PRACTICAL"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="1"/><column name="subject_id" valueNumeric="5"/>
+            <column name="teacher_id" valueNumeric="4"/><column name="day_of_week" valueNumeric="4"/>
+            <column name="start_time" value="09:25:00"/><column name="end_time" value="10:10:00"/>
+            <column name="classroom" value="204"/><column name="lesson_type" value="PRACTICAL"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="1"/><column name="subject_id" valueNumeric="7"/>
+            <column name="teacher_id" valueNumeric="6"/><column name="day_of_week" valueNumeric="4"/>
+            <column name="start_time" value="10:25:00"/><column name="end_time" value="11:10:00"/>
+            <column name="classroom" value="301"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="1"/><column name="subject_id" valueNumeric="8"/>
+            <column name="teacher_id" valueNumeric="7"/><column name="day_of_week" valueNumeric="4"/>
+            <column name="start_time" value="11:25:00"/><column name="end_time" value="12:10:00"/>
+            <column name="classroom" value="208"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="1"/><column name="subject_id" valueNumeric="2"/>
+            <column name="teacher_id" valueNumeric="2"/><column name="day_of_week" valueNumeric="5"/>
+            <column name="start_time" value="08:30:00"/><column name="end_time" value="09:15:00"/>
+            <column name="classroom" value="201"/><column name="lesson_type" value="PRACTICAL"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="1"/><column name="subject_id" valueNumeric="10"/>
+            <column name="teacher_id" valueNumeric="9"/><column name="day_of_week" valueNumeric="5"/>
+            <column name="start_time" value="09:25:00"/><column name="end_time" value="10:10:00"/>
+            <column name="classroom" value="205"/><column name="lesson_type" value="PRACTICAL"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="1"/><column name="subject_id" valueNumeric="4"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="day_of_week" valueNumeric="5"/>
+            <column name="start_time" value="10:25:00"/><column name="end_time" value="11:10:00"/>
+            <column name="classroom" value="105"/><column name="lesson_type" value="SEMINAR"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="1"/><column name="subject_id" valueNumeric="11"/>
+            <column name="teacher_id" valueNumeric="8"/><column name="day_of_week" valueNumeric="5"/>
+            <column name="start_time" value="11:25:00"/><column name="end_time" value="12:10:00"/>
+            <column name="classroom" value="206"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="1"/><column name="subject_id" valueNumeric="6"/>
+            <column name="teacher_id" valueNumeric="5"/><column name="day_of_week" valueNumeric="5"/>
+            <column name="start_time" value="12:20:00"/><column name="end_time" value="13:05:00"/>
+            <column name="classroom" value="207"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+    </changeSet>
+    <changeSet id="reseed-lessons-group2" author="eduhab">
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="2"/><column name="subject_id" valueNumeric="5"/>
+            <column name="teacher_id" valueNumeric="4"/><column name="day_of_week" valueNumeric="1"/>
+            <column name="start_time" value="08:30:00"/><column name="end_time" value="09:15:00"/>
+            <column name="classroom" value="204"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="2"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="day_of_week" valueNumeric="1"/>
+            <column name="start_time" value="09:25:00"/><column name="end_time" value="10:10:00"/>
+            <column name="classroom" value="201"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="2"/><column name="subject_id" valueNumeric="6"/>
+            <column name="teacher_id" valueNumeric="5"/><column name="day_of_week" valueNumeric="1"/>
+            <column name="start_time" value="10:25:00"/><column name="end_time" value="11:10:00"/>
+            <column name="classroom" value="207"/><column name="lesson_type" value="PRACTICAL"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="2"/><column name="subject_id" valueNumeric="7"/>
+            <column name="teacher_id" valueNumeric="6"/><column name="day_of_week" valueNumeric="1"/>
+            <column name="start_time" value="11:25:00"/><column name="end_time" value="12:10:00"/>
+            <column name="classroom" value="301"/><column name="lesson_type" value="PRACTICAL"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="2"/><column name="subject_id" valueNumeric="8"/>
+            <column name="teacher_id" valueNumeric="7"/><column name="day_of_week" valueNumeric="1"/>
+            <column name="start_time" value="12:20:00"/><column name="end_time" value="13:05:00"/>
+            <column name="classroom" value="208"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="2"/><column name="subject_id" valueNumeric="2"/>
+            <column name="teacher_id" valueNumeric="2"/><column name="day_of_week" valueNumeric="2"/>
+            <column name="start_time" value="08:30:00"/><column name="end_time" value="09:15:00"/>
+            <column name="classroom" value="201"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="2"/><column name="subject_id" valueNumeric="8"/>
+            <column name="teacher_id" valueNumeric="7"/><column name="day_of_week" valueNumeric="2"/>
+            <column name="start_time" value="09:25:00"/><column name="end_time" value="10:10:00"/>
+            <column name="classroom" value="208"/><column name="lesson_type" value="PRACTICAL"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="2"/><column name="subject_id" valueNumeric="3"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="day_of_week" valueNumeric="2"/>
+            <column name="start_time" value="10:25:00"/><column name="end_time" value="11:10:00"/>
+            <column name="classroom" value="105"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="2"/><column name="subject_id" valueNumeric="11"/>
+            <column name="teacher_id" valueNumeric="8"/><column name="day_of_week" valueNumeric="2"/>
+            <column name="start_time" value="11:25:00"/><column name="end_time" value="12:10:00"/>
+            <column name="classroom" value="206"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="2"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="day_of_week" valueNumeric="3"/>
+            <column name="start_time" value="08:30:00"/><column name="end_time" value="09:15:00"/>
+            <column name="classroom" value="201"/><column name="lesson_type" value="PRACTICAL"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="2"/><column name="subject_id" valueNumeric="5"/>
+            <column name="teacher_id" valueNumeric="4"/><column name="day_of_week" valueNumeric="3"/>
+            <column name="start_time" value="09:25:00"/><column name="end_time" value="10:10:00"/>
+            <column name="classroom" value="204"/><column name="lesson_type" value="PRACTICAL"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="2"/><column name="subject_id" valueNumeric="10"/>
+            <column name="teacher_id" valueNumeric="9"/><column name="day_of_week" valueNumeric="3"/>
+            <column name="start_time" value="10:25:00"/><column name="end_time" value="11:10:00"/>
+            <column name="classroom" value="205"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="2"/><column name="subject_id" valueNumeric="9"/>
+            <column name="teacher_id" valueNumeric="8"/><column name="day_of_week" valueNumeric="3"/>
+            <column name="start_time" value="11:25:00"/><column name="end_time" value="12:10:00"/>
+            <column name="classroom" value="206"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="2"/><column name="subject_id" valueNumeric="13"/>
+            <column name="teacher_id" valueNumeric="11"/><column name="day_of_week" valueNumeric="3"/>
+            <column name="start_time" value="12:20:00"/><column name="end_time" value="13:05:00"/>
+            <column name="classroom" value="Спортзал"/><column name="lesson_type" value="PRACTICAL"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="2"/><column name="subject_id" valueNumeric="3"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="day_of_week" valueNumeric="4"/>
+            <column name="start_time" value="08:30:00"/><column name="end_time" value="09:15:00"/>
+            <column name="classroom" value="105"/><column name="lesson_type" value="PRACTICAL"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="2"/><column name="subject_id" valueNumeric="2"/>
+            <column name="teacher_id" valueNumeric="2"/><column name="day_of_week" valueNumeric="4"/>
+            <column name="start_time" value="09:25:00"/><column name="end_time" value="10:10:00"/>
+            <column name="classroom" value="201"/><column name="lesson_type" value="PRACTICAL"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="2"/><column name="subject_id" valueNumeric="4"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="day_of_week" valueNumeric="4"/>
+            <column name="start_time" value="10:25:00"/><column name="end_time" value="11:10:00"/>
+            <column name="classroom" value="105"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="2"/><column name="subject_id" valueNumeric="14"/>
+            <column name="teacher_id" valueNumeric="11"/><column name="day_of_week" valueNumeric="4"/>
+            <column name="start_time" value="11:25:00"/><column name="end_time" value="12:10:00"/>
+            <column name="classroom" value="101"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="2"/><column name="subject_id" valueNumeric="7"/>
+            <column name="teacher_id" valueNumeric="6"/><column name="day_of_week" valueNumeric="5"/>
+            <column name="start_time" value="08:30:00"/><column name="end_time" value="09:15:00"/>
+            <column name="classroom" value="301"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="2"/><column name="subject_id" valueNumeric="6"/>
+            <column name="teacher_id" valueNumeric="5"/><column name="day_of_week" valueNumeric="5"/>
+            <column name="start_time" value="09:25:00"/><column name="end_time" value="10:10:00"/>
+            <column name="classroom" value="207"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="2"/><column name="subject_id" valueNumeric="12"/>
+            <column name="teacher_id" valueNumeric="10"/><column name="day_of_week" valueNumeric="5"/>
+            <column name="start_time" value="10:25:00"/><column name="end_time" value="11:10:00"/>
+            <column name="classroom" value="209"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="2"/><column name="subject_id" valueNumeric="9"/>
+            <column name="teacher_id" valueNumeric="8"/><column name="day_of_week" valueNumeric="5"/>
+            <column name="start_time" value="11:25:00"/><column name="end_time" value="12:10:00"/>
+            <column name="classroom" value="206"/><column name="lesson_type" value="SEMINAR"/>
+        </insert>
+    </changeSet>
+    <changeSet id="reseed-lessons-group3" author="eduhab">
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="3"/><column name="subject_id" valueNumeric="4"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="day_of_week" valueNumeric="1"/>
+            <column name="start_time" value="08:30:00"/><column name="end_time" value="09:15:00"/>
+            <column name="classroom" value="105"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="3"/><column name="subject_id" valueNumeric="9"/>
+            <column name="teacher_id" valueNumeric="8"/><column name="day_of_week" valueNumeric="1"/>
+            <column name="start_time" value="09:25:00"/><column name="end_time" value="10:10:00"/>
+            <column name="classroom" value="206"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="3"/><column name="subject_id" valueNumeric="7"/>
+            <column name="teacher_id" valueNumeric="6"/><column name="day_of_week" valueNumeric="1"/>
+            <column name="start_time" value="10:25:00"/><column name="end_time" value="11:10:00"/>
+            <column name="classroom" value="301"/><column name="lesson_type" value="PRACTICAL"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="3"/><column name="subject_id" valueNumeric="11"/>
+            <column name="teacher_id" valueNumeric="8"/><column name="day_of_week" valueNumeric="1"/>
+            <column name="start_time" value="11:25:00"/><column name="end_time" value="12:10:00"/>
+            <column name="classroom" value="206"/><column name="lesson_type" value="SEMINAR"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="3"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="day_of_week" valueNumeric="2"/>
+            <column name="start_time" value="08:30:00"/><column name="end_time" value="09:15:00"/>
+            <column name="classroom" value="201"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="3"/><column name="subject_id" valueNumeric="12"/>
+            <column name="teacher_id" valueNumeric="10"/><column name="day_of_week" valueNumeric="2"/>
+            <column name="start_time" value="09:25:00"/><column name="end_time" value="10:10:00"/>
+            <column name="classroom" value="209"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="3"/><column name="subject_id" valueNumeric="6"/>
+            <column name="teacher_id" valueNumeric="5"/><column name="day_of_week" valueNumeric="2"/>
+            <column name="start_time" value="10:25:00"/><column name="end_time" value="11:10:00"/>
+            <column name="classroom" value="207"/><column name="lesson_type" value="PRACTICAL"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="3"/><column name="subject_id" valueNumeric="13"/>
+            <column name="teacher_id" valueNumeric="11"/><column name="day_of_week" valueNumeric="2"/>
+            <column name="start_time" value="11:25:00"/><column name="end_time" value="12:10:00"/>
+            <column name="classroom" value="Спортзал"/><column name="lesson_type" value="PRACTICAL"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="3"/><column name="subject_id" valueNumeric="10"/>
+            <column name="teacher_id" valueNumeric="9"/><column name="day_of_week" valueNumeric="3"/>
+            <column name="start_time" value="08:30:00"/><column name="end_time" value="09:15:00"/>
+            <column name="classroom" value="205"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="3"/><column name="subject_id" valueNumeric="3"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="day_of_week" valueNumeric="3"/>
+            <column name="start_time" value="09:25:00"/><column name="end_time" value="10:10:00"/>
+            <column name="classroom" value="105"/><column name="lesson_type" value="PRACTICAL"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="3"/><column name="subject_id" valueNumeric="5"/>
+            <column name="teacher_id" valueNumeric="4"/><column name="day_of_week" valueNumeric="3"/>
+            <column name="start_time" value="10:25:00"/><column name="end_time" value="11:10:00"/>
+            <column name="classroom" value="204"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="3"/><column name="subject_id" valueNumeric="2"/>
+            <column name="teacher_id" valueNumeric="2"/><column name="day_of_week" valueNumeric="4"/>
+            <column name="start_time" value="08:30:00"/><column name="end_time" value="09:15:00"/>
+            <column name="classroom" value="201"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="3"/><column name="subject_id" valueNumeric="8"/>
+            <column name="teacher_id" valueNumeric="7"/><column name="day_of_week" valueNumeric="4"/>
+            <column name="start_time" value="09:25:00"/><column name="end_time" value="10:10:00"/>
+            <column name="classroom" value="208"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="3"/><column name="subject_id" valueNumeric="4"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="day_of_week" valueNumeric="4"/>
+            <column name="start_time" value="10:25:00"/><column name="end_time" value="11:10:00"/>
+            <column name="classroom" value="105"/><column name="lesson_type" value="SEMINAR"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="3"/><column name="subject_id" valueNumeric="7"/>
+            <column name="teacher_id" valueNumeric="6"/><column name="day_of_week" valueNumeric="4"/>
+            <column name="start_time" value="11:25:00"/><column name="end_time" value="12:10:00"/>
+            <column name="classroom" value="301"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="3"/><column name="subject_id" valueNumeric="3"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="day_of_week" valueNumeric="5"/>
+            <column name="start_time" value="08:30:00"/><column name="end_time" value="09:15:00"/>
+            <column name="classroom" value="105"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="3"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="day_of_week" valueNumeric="5"/>
+            <column name="start_time" value="09:25:00"/><column name="end_time" value="10:10:00"/>
+            <column name="classroom" value="201"/><column name="lesson_type" value="PRACTICAL"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="3"/><column name="subject_id" valueNumeric="11"/>
+            <column name="teacher_id" valueNumeric="8"/><column name="day_of_week" valueNumeric="5"/>
+            <column name="start_time" value="10:25:00"/><column name="end_time" value="11:10:00"/>
+            <column name="classroom" value="206"/><column name="lesson_type" value="LECTURE"/>
+        </insert>
+        <insert tableName="lessons">
+            <column name="group_id" valueNumeric="3"/><column name="subject_id" valueNumeric="10"/>
+            <column name="teacher_id" valueNumeric="9"/><column name="day_of_week" valueNumeric="5"/>
+            <column name="start_time" value="11:25:00"/><column name="end_time" value="12:10:00"/>
+            <column name="classroom" value="205"/><column name="lesson_type" value="PRACTICAL"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="reseed-schedule-breaks" author="eduhab">
+        <insert tableName="schedule_breaks">
+            <column name="group_id" valueNumeric="1"/><column name="day_of_week" valueNumeric="1"/>
+            <column name="start_time" value="09:15:00"/><column name="end_time" value="09:25:00"/>
+            <column name="label" value="Перемена"/>
+        </insert>
+        <insert tableName="schedule_breaks">
+            <column name="group_id" valueNumeric="1"/><column name="day_of_week" valueNumeric="1"/>
+            <column name="start_time" value="10:10:00"/><column name="end_time" value="10:25:00"/>
+            <column name="label" value="Большая перемена"/>
+        </insert>
+        <insert tableName="schedule_breaks">
+            <column name="group_id" valueNumeric="1"/><column name="day_of_week" valueNumeric="1"/>
+            <column name="start_time" value="11:10:00"/><column name="end_time" value="11:25:00"/>
+            <column name="label" value="Перемена"/>
+        </insert>
+        <insert tableName="schedule_breaks">
+            <column name="group_id" valueNumeric="1"/><column name="day_of_week" valueNumeric="1"/>
+            <column name="start_time" value="12:10:00"/><column name="end_time" value="12:20:00"/>
+            <column name="label" value="Перемена"/>
+        </insert>
+        <insert tableName="schedule_breaks">
+            <column name="group_id" valueNumeric="1"/><column name="day_of_week" valueNumeric="2"/>
+            <column name="start_time" value="09:15:00"/><column name="end_time" value="09:25:00"/>
+            <column name="label" value="Перемена"/>
+        </insert>
+        <insert tableName="schedule_breaks">
+            <column name="group_id" valueNumeric="1"/><column name="day_of_week" valueNumeric="2"/>
+            <column name="start_time" value="10:10:00"/><column name="end_time" value="10:25:00"/>
+            <column name="label" value="Большая перемена"/>
+        </insert>
+        <insert tableName="schedule_breaks">
+            <column name="group_id" valueNumeric="1"/><column name="day_of_week" valueNumeric="2"/>
+            <column name="start_time" value="11:10:00"/><column name="end_time" value="11:25:00"/>
+            <column name="label" value="Перемена"/>
+        </insert>
+        <insert tableName="schedule_breaks">
+            <column name="group_id" valueNumeric="1"/><column name="day_of_week" valueNumeric="2"/>
+            <column name="start_time" value="12:10:00"/><column name="end_time" value="12:20:00"/>
+            <column name="label" value="Перемена"/>
+        </insert>
+        <insert tableName="schedule_breaks">
+            <column name="group_id" valueNumeric="1"/><column name="day_of_week" valueNumeric="3"/>
+            <column name="start_time" value="09:15:00"/><column name="end_time" value="09:25:00"/>
+            <column name="label" value="Перемена"/>
+        </insert>
+        <insert tableName="schedule_breaks">
+            <column name="group_id" valueNumeric="1"/><column name="day_of_week" valueNumeric="3"/>
+            <column name="start_time" value="10:10:00"/><column name="end_time" value="10:25:00"/>
+            <column name="label" value="Большая перемена"/>
+        </insert>
+        <insert tableName="schedule_breaks">
+            <column name="group_id" valueNumeric="1"/><column name="day_of_week" valueNumeric="3"/>
+            <column name="start_time" value="11:10:00"/><column name="end_time" value="11:25:00"/>
+            <column name="label" value="Перемена"/>
+        </insert>
+        <insert tableName="schedule_breaks">
+            <column name="group_id" valueNumeric="2"/><column name="day_of_week" valueNumeric="1"/>
+            <column name="start_time" value="09:15:00"/><column name="end_time" value="09:25:00"/>
+            <column name="label" value="Перемена"/>
+        </insert>
+        <insert tableName="schedule_breaks">
+            <column name="group_id" valueNumeric="2"/><column name="day_of_week" valueNumeric="1"/>
+            <column name="start_time" value="10:10:00"/><column name="end_time" value="10:25:00"/>
+            <column name="label" value="Большая перемена"/>
+        </insert>
+        <insert tableName="schedule_breaks">
+            <column name="group_id" valueNumeric="2"/><column name="day_of_week" valueNumeric="1"/>
+            <column name="start_time" value="11:10:00"/><column name="end_time" value="11:25:00"/>
+            <column name="label" value="Перемена"/>
+        </insert>
+        <insert tableName="schedule_breaks">
+            <column name="group_id" valueNumeric="2"/><column name="day_of_week" valueNumeric="3"/>
+            <column name="start_time" value="09:15:00"/><column name="end_time" value="09:25:00"/>
+            <column name="label" value="Перемена"/>
+        </insert>
+        <insert tableName="schedule_breaks">
+            <column name="group_id" valueNumeric="2"/><column name="day_of_week" valueNumeric="3"/>
+            <column name="start_time" value="10:10:00"/><column name="end_time" value="10:25:00"/>
+            <column name="label" value="Большая перемена"/>
+        </insert>
+        <insert tableName="schedule_breaks">
+            <column name="group_id" valueNumeric="2"/><column name="day_of_week" valueNumeric="3"/>
+            <column name="start_time" value="11:10:00"/><column name="end_time" value="11:25:00"/>
+            <column name="label" value="Перемена"/>
+        </insert>
+        <insert tableName="schedule_breaks">
+            <column name="group_id" valueNumeric="2"/><column name="day_of_week" valueNumeric="3"/>
+            <column name="start_time" value="12:10:00"/><column name="end_time" value="12:20:00"/>
+            <column name="label" value="Перемена"/>
+        </insert>
+        <insert tableName="schedule_breaks">
+            <column name="group_id" valueNumeric="3"/><column name="day_of_week" valueNumeric="1"/>
+            <column name="start_time" value="09:15:00"/><column name="end_time" value="09:25:00"/>
+            <column name="label" value="Перемена"/>
+        </insert>
+        <insert tableName="schedule_breaks">
+            <column name="group_id" valueNumeric="3"/><column name="day_of_week" valueNumeric="1"/>
+            <column name="start_time" value="10:10:00"/><column name="end_time" value="10:25:00"/>
+            <column name="label" value="Большая перемена"/>
+        </insert>
+        <insert tableName="schedule_breaks">
+            <column name="group_id" valueNumeric="3"/><column name="day_of_week" valueNumeric="1"/>
+            <column name="start_time" value="11:10:00"/><column name="end_time" value="11:25:00"/>
+            <column name="label" value="Перемена"/>
+        </insert>
+        <insert tableName="schedule_breaks">
+            <column name="group_id" valueNumeric="3"/><column name="day_of_week" valueNumeric="2"/>
+            <column name="start_time" value="09:15:00"/><column name="end_time" value="09:25:00"/>
+            <column name="label" value="Перемена"/>
+        </insert>
+        <insert tableName="schedule_breaks">
+            <column name="group_id" valueNumeric="3"/><column name="day_of_week" valueNumeric="2"/>
+            <column name="start_time" value="10:10:00"/><column name="end_time" value="10:25:00"/>
+            <column name="label" value="Большая перемена"/>
+        </insert>
+        <insert tableName="schedule_breaks">
+            <column name="group_id" valueNumeric="3"/><column name="day_of_week" valueNumeric="2"/>
+            <column name="start_time" value="11:10:00"/><column name="end_time" value="11:25:00"/>
+            <column name="label" value="Перемена"/>
+        </insert>
+        <insert tableName="schedule_breaks">
+            <column name="group_id" valueNumeric="3"/><column name="day_of_week" valueNumeric="3"/>
+            <column name="start_time" value="09:15:00"/><column name="end_time" value="09:25:00"/>
+            <column name="label" value="Перемена"/>
+        </insert>
+    </changeSet>
+    <changeSet id="reseed-grades-group1" author="eduhab">
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="1"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="1"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-08T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="1"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="12"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-15T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="1"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CONTROL"/><column name="weight" valueNumeric="2"/>
+            <column name="created_at" valueDate="2025-10-06T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="1"/><column name="subject_id" valueNumeric="3"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="2"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-09T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="1"/><column name="subject_id" valueNumeric="3"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="16"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-25T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="1"/><column name="subject_id" valueNumeric="4"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="ESSAY"/><column name="lesson_id" valueNumeric="21"/>
+            <column name="weight" valueNumeric="2"/><column name="created_at" valueDate="2025-10-10T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="1"/><column name="subject_id" valueNumeric="5"/>
+            <column name="teacher_id" valueNumeric="4"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="6"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-10T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="1"/><column name="subject_id" valueNumeric="5"/>
+            <column name="teacher_id" valueNumeric="4"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CONTROL"/><column name="weight" valueNumeric="2"/>
+            <column name="created_at" valueDate="2025-11-12T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="1"/><column name="subject_id" valueNumeric="6"/>
+            <column name="teacher_id" valueNumeric="5"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="11"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-17T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="1"/><column name="subject_id" valueNumeric="7"/>
+            <column name="teacher_id" valueNumeric="6"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="3"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-11T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="1"/><column name="subject_id" valueNumeric="7"/>
+            <column name="teacher_id" valueNumeric="6"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="18"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-10-02T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="1"/><column name="subject_id" valueNumeric="9"/>
+            <column name="teacher_id" valueNumeric="8"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="5"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-12T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="1"/><column name="subject_id" valueNumeric="10"/>
+            <column name="teacher_id" valueNumeric="9"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="13"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-18T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="1"/><column name="subject_id" valueNumeric="10"/>
+            <column name="teacher_id" valueNumeric="9"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CONTROL"/><column name="weight" valueNumeric="2"/>
+            <column name="created_at" valueDate="2025-12-15T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="1"/><column name="subject_id" valueNumeric="12"/>
+            <column name="teacher_id" valueNumeric="10"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="14"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-19T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="2"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="1"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-08T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="2"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="12"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-15T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="2"/><column name="subject_id" valueNumeric="3"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="2"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-09T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="2"/><column name="subject_id" valueNumeric="5"/>
+            <column name="teacher_id" valueNumeric="4"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="6"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-10T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="2"/><column name="subject_id" valueNumeric="7"/>
+            <column name="teacher_id" valueNumeric="6"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="3"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-11T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="2"/><column name="subject_id" valueNumeric="2"/>
+            <column name="teacher_id" valueNumeric="2"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CONTROL"/><column name="weight" valueNumeric="2"/>
+            <column name="created_at" valueDate="2025-10-20T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="2"/><column name="subject_id" valueNumeric="9"/>
+            <column name="teacher_id" valueNumeric="8"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="5"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-12T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="2"/><column name="subject_id" valueNumeric="6"/>
+            <column name="teacher_id" valueNumeric="5"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="11"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-17T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="3"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="CURRENT"/><column name="weight" valueNumeric="1"/>
+            <column name="created_at" valueDate="2025-09-08T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="3"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="CONTROL"/><column name="weight" valueNumeric="2"/>
+            <column name="created_at" valueDate="2025-10-06T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="3"/><column name="subject_id" valueNumeric="3"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="2"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-09T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="3"/><column name="subject_id" valueNumeric="5"/>
+            <column name="teacher_id" valueNumeric="4"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="weight" valueNumeric="1"/>
+            <column name="created_at" valueDate="2025-09-10T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="3"/><column name="subject_id" valueNumeric="7"/>
+            <column name="teacher_id" valueNumeric="6"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="3"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-11T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="3"/><column name="subject_id" valueNumeric="4"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="21"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-10-10T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="3"/><column name="subject_id" valueNumeric="10"/>
+            <column name="teacher_id" valueNumeric="9"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="13"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-18T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="3"/><column name="subject_id" valueNumeric="2"/>
+            <column name="teacher_id" valueNumeric="2"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="7"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-16T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="4"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="1"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-08T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="4"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CONTROL"/><column name="weight" valueNumeric="2"/>
+            <column name="created_at" valueDate="2025-10-06T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="4"/><column name="subject_id" valueNumeric="3"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="2"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-09T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="4"/><column name="subject_id" valueNumeric="5"/>
+            <column name="teacher_id" valueNumeric="4"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="6"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-10T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="4"/><column name="subject_id" valueNumeric="7"/>
+            <column name="teacher_id" valueNumeric="6"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="3"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-11T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="4"/><column name="subject_id" valueNumeric="8"/>
+            <column name="teacher_id" valueNumeric="7"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="19"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-25T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="4"/><column name="subject_id" valueNumeric="10"/>
+            <column name="teacher_id" valueNumeric="9"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="13"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-18T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="4"/><column name="subject_id" valueNumeric="2"/>
+            <column name="teacher_id" valueNumeric="2"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="7"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-16T10:00:00"/>
+        </insert>
+    </changeSet>
+    <changeSet id="reseed-grades-group1-part2" author="eduhab">
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="5"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="1"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-08T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="5"/><column name="subject_id" valueNumeric="3"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="CURRENT"/><column name="weight" valueNumeric="1"/>
+            <column name="created_at" valueDate="2025-09-09T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="5"/><column name="subject_id" valueNumeric="5"/>
+            <column name="teacher_id" valueNumeric="4"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CONTROL"/><column name="weight" valueNumeric="2"/>
+            <column name="created_at" valueDate="2025-11-12T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="5"/><column name="subject_id" valueNumeric="7"/>
+            <column name="teacher_id" valueNumeric="6"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="3"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-11T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="5"/><column name="subject_id" valueNumeric="9"/>
+            <column name="teacher_id" valueNumeric="8"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="5"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-12T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="5"/><column name="subject_id" valueNumeric="6"/>
+            <column name="teacher_id" valueNumeric="5"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="11"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-17T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="5"/><column name="subject_id" valueNumeric="2"/>
+            <column name="teacher_id" valueNumeric="2"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="CONTROL"/><column name="weight" valueNumeric="2"/>
+            <column name="created_at" valueDate="2025-10-20T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="6"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="1"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-08T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="6"/><column name="subject_id" valueNumeric="3"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="2"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-09T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="6"/><column name="subject_id" valueNumeric="5"/>
+            <column name="teacher_id" valueNumeric="4"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="CURRENT"/><column name="weight" valueNumeric="1"/>
+            <column name="created_at" valueDate="2025-09-10T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="6"/><column name="subject_id" valueNumeric="10"/>
+            <column name="teacher_id" valueNumeric="9"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="13"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-18T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="6"/><column name="subject_id" valueNumeric="7"/>
+            <column name="teacher_id" valueNumeric="6"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="18"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-10-02T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="6"/><column name="subject_id" valueNumeric="4"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="ESSAY"/><column name="weight" valueNumeric="2"/>
+            <column name="created_at" valueDate="2025-10-10T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="6"/><column name="subject_id" valueNumeric="8"/>
+            <column name="teacher_id" valueNumeric="7"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="19"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-25T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="7"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="1"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-08T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="7"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="12"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-15T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="7"/><column name="subject_id" valueNumeric="3"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="2"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-09T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="7"/><column name="subject_id" valueNumeric="7"/>
+            <column name="teacher_id" valueNumeric="6"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="18"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-10-02T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="7"/><column name="subject_id" valueNumeric="10"/>
+            <column name="teacher_id" valueNumeric="9"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="13"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-18T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="7"/><column name="subject_id" valueNumeric="11"/>
+            <column name="teacher_id" valueNumeric="8"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="22"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-10-03T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="7"/><column name="subject_id" valueNumeric="9"/>
+            <column name="teacher_id" valueNumeric="8"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="9"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-16T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="8"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="1"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-08T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="8"/><column name="subject_id" valueNumeric="3"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="2"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-09T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="8"/><column name="subject_id" valueNumeric="5"/>
+            <column name="teacher_id" valueNumeric="4"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CONTROL"/><column name="weight" valueNumeric="2"/>
+            <column name="created_at" valueDate="2025-11-12T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="8"/><column name="subject_id" valueNumeric="6"/>
+            <column name="teacher_id" valueNumeric="5"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="11"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-17T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="8"/><column name="subject_id" valueNumeric="10"/>
+            <column name="teacher_id" valueNumeric="9"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="13"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-18T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="8"/><column name="subject_id" valueNumeric="2"/>
+            <column name="teacher_id" valueNumeric="2"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="7"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-16T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="8"/><column name="subject_id" valueNumeric="9"/>
+            <column name="teacher_id" valueNumeric="8"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="lesson_id" valueNumeric="5"/>
+            <column name="weight" valueNumeric="1"/><column name="created_at" valueDate="2025-09-12T10:00:00"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="reseed-grades-group2" author="eduhab">
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="9"/><column name="subject_id" valueNumeric="5"/>
+            <column name="teacher_id" valueNumeric="4"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-08T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="9"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-08T11:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="9"/><column name="subject_id" valueNumeric="6"/>
+            <column name="teacher_id" valueNumeric="5"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-15T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="9"/><column name="subject_id" valueNumeric="7"/>
+            <column name="teacher_id" valueNumeric="6"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-22T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="9"/><column name="subject_id" valueNumeric="8"/>
+            <column name="teacher_id" valueNumeric="7"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CONTROL"/><column name="weight" valueNumeric="2"/>
+            <column name="created_at" valueDate="2025-10-27T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="10"/><column name="subject_id" valueNumeric="5"/>
+            <column name="teacher_id" valueNumeric="4"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-08T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="10"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-08T11:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="10"/><column name="subject_id" valueNumeric="2"/>
+            <column name="teacher_id" valueNumeric="2"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-16T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="10"/><column name="subject_id" valueNumeric="3"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-23T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="10"/><column name="subject_id" valueNumeric="6"/>
+            <column name="teacher_id" valueNumeric="5"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-10-07T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="11"/><column name="subject_id" valueNumeric="5"/>
+            <column name="teacher_id" valueNumeric="4"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-08T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="11"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CONTROL"/><column name="weight" valueNumeric="2"/>
+            <column name="created_at" valueDate="2025-10-14T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="11"/><column name="subject_id" valueNumeric="7"/>
+            <column name="teacher_id" valueNumeric="6"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-22T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="11"/><column name="subject_id" valueNumeric="8"/>
+            <column name="teacher_id" valueNumeric="7"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-10-01T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="11"/><column name="subject_id" valueNumeric="11"/>
+            <column name="teacher_id" valueNumeric="8"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-10-08T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="12"/><column name="subject_id" valueNumeric="5"/>
+            <column name="teacher_id" valueNumeric="4"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-08T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="12"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-08T11:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="12"/><column name="subject_id" valueNumeric="2"/>
+            <column name="teacher_id" valueNumeric="2"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-16T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="12"/><column name="subject_id" valueNumeric="3"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-23T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="12"/><column name="subject_id" valueNumeric="6"/>
+            <column name="teacher_id" valueNumeric="5"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-10-07T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="13"/><column name="subject_id" valueNumeric="5"/>
+            <column name="teacher_id" valueNumeric="4"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-08T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="13"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-08T11:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="13"/><column name="subject_id" valueNumeric="11"/>
+            <column name="teacher_id" valueNumeric="8"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-10-08T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="13"/><column name="subject_id" valueNumeric="8"/>
+            <column name="teacher_id" valueNumeric="7"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-10-01T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="14"/><column name="subject_id" valueNumeric="5"/>
+            <column name="teacher_id" valueNumeric="4"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-08T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="14"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-08T11:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="14"/><column name="subject_id" valueNumeric="2"/>
+            <column name="teacher_id" valueNumeric="2"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CONTROL"/><column name="weight" valueNumeric="2"/>
+            <column name="created_at" valueDate="2025-11-18T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="14"/><column name="subject_id" valueNumeric="7"/>
+            <column name="teacher_id" valueNumeric="6"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-10-21T10:00:00"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="reseed-grades-group3" author="eduhab">
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="15"/><column name="subject_id" valueNumeric="4"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-08T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="15"/><column name="subject_id" valueNumeric="9"/>
+            <column name="teacher_id" valueNumeric="8"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-08T11:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="15"/><column name="subject_id" valueNumeric="7"/>
+            <column name="teacher_id" valueNumeric="6"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-15T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="15"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-16T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="15"/><column name="subject_id" valueNumeric="11"/>
+            <column name="teacher_id" valueNumeric="8"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-22T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="15"/><column name="subject_id" valueNumeric="10"/>
+            <column name="teacher_id" valueNumeric="9"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CONTROL"/><column name="weight" valueNumeric="2"/>
+            <column name="created_at" valueDate="2025-11-10T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="16"/><column name="subject_id" valueNumeric="4"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-08T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="16"/><column name="subject_id" valueNumeric="9"/>
+            <column name="teacher_id" valueNumeric="8"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-08T11:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="16"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-16T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="16"/><column name="subject_id" valueNumeric="7"/>
+            <column name="teacher_id" valueNumeric="6"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-15T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="16"/><column name="subject_id" valueNumeric="6"/>
+            <column name="teacher_id" valueNumeric="5"/><column name="value" valueNumeric="5"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-23T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="17"/><column name="subject_id" valueNumeric="4"/>
+            <column name="teacher_id" valueNumeric="3"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-08T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="17"/><column name="subject_id" valueNumeric="9"/>
+            <column name="teacher_id" valueNumeric="8"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-08T11:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="17"/><column name="subject_id" valueNumeric="1"/>
+            <column name="teacher_id" valueNumeric="1"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CONTROL"/><column name="weight" valueNumeric="2"/>
+            <column name="created_at" valueDate="2025-10-21T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="17"/><column name="subject_id" valueNumeric="11"/>
+            <column name="teacher_id" valueNumeric="8"/><column name="value" valueNumeric="3"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-09-22T10:00:00"/>
+        </insert>
+        <insert tableName="grades">
+            <column name="student_id" valueNumeric="17"/><column name="subject_id" valueNumeric="10"/>
+            <column name="teacher_id" valueNumeric="9"/><column name="value" valueNumeric="4"/>
+            <column name="grade_type" value="CURRENT"/><column name="created_at" valueDate="2025-10-01T10:00:00"/>
+        </insert>
+    </changeSet>
+    <changeSet id="reseed-attendance" author="eduhab">
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="1"/><column name="lesson_id" valueNumeric="1"/>
+            <column name="date" valueDate="2025-09-08"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-08T10:00:00"/><column name="marked_by" valueNumeric="1"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="2"/><column name="lesson_id" valueNumeric="1"/>
+            <column name="date" valueDate="2025-09-08"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-08T10:00:00"/><column name="marked_by" valueNumeric="1"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="3"/><column name="lesson_id" valueNumeric="1"/>
+            <column name="date" valueDate="2025-09-08"/><column name="status" value="LATE"/>
+            <column name="comment" value="Опоздал на 3 минуты"/>
+            <column name="marked_at" valueDate="2025-09-08T10:00:00"/><column name="marked_by" valueNumeric="1"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="4"/><column name="lesson_id" valueNumeric="1"/>
+            <column name="date" valueDate="2025-09-08"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-08T10:00:00"/><column name="marked_by" valueNumeric="1"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="5"/><column name="lesson_id" valueNumeric="1"/>
+            <column name="date" valueDate="2025-09-08"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-08T10:00:00"/><column name="marked_by" valueNumeric="1"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="6"/><column name="lesson_id" valueNumeric="1"/>
+            <column name="date" valueDate="2025-09-08"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-08T10:00:00"/><column name="marked_by" valueNumeric="1"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="7"/><column name="lesson_id" valueNumeric="1"/>
+            <column name="date" valueDate="2025-09-08"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-08T10:00:00"/><column name="marked_by" valueNumeric="1"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="8"/><column name="lesson_id" valueNumeric="1"/>
+            <column name="date" valueDate="2025-09-08"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-08T10:00:00"/><column name="marked_by" valueNumeric="1"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="1"/><column name="lesson_id" valueNumeric="2"/>
+            <column name="date" valueDate="2025-09-09"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-09T10:00:00"/><column name="marked_by" valueNumeric="3"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="2"/><column name="lesson_id" valueNumeric="2"/>
+            <column name="date" valueDate="2025-09-09"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-09T10:00:00"/><column name="marked_by" valueNumeric="3"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="3"/><column name="lesson_id" valueNumeric="2"/>
+            <column name="date" valueDate="2025-09-09"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-09T10:00:00"/><column name="marked_by" valueNumeric="3"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="4"/><column name="lesson_id" valueNumeric="2"/>
+            <column name="date" valueDate="2025-09-09"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-09T10:00:00"/><column name="marked_by" valueNumeric="3"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="5"/><column name="lesson_id" valueNumeric="2"/>
+            <column name="date" valueDate="2025-09-09"/><column name="status" value="ABSENT"/>
+            <column name="comment" value="Болеет"/>
+            <column name="marked_at" valueDate="2025-09-09T10:00:00"/><column name="marked_by" valueNumeric="3"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="6"/><column name="lesson_id" valueNumeric="2"/>
+            <column name="date" valueDate="2025-09-09"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-09T10:00:00"/><column name="marked_by" valueNumeric="3"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="7"/><column name="lesson_id" valueNumeric="2"/>
+            <column name="date" valueDate="2025-09-09"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-09T10:00:00"/><column name="marked_by" valueNumeric="3"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="8"/><column name="lesson_id" valueNumeric="2"/>
+            <column name="date" valueDate="2025-09-09"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-09T10:00:00"/><column name="marked_by" valueNumeric="3"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="1"/><column name="lesson_id" valueNumeric="3"/>
+            <column name="date" valueDate="2025-09-11"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-11T10:00:00"/><column name="marked_by" valueNumeric="6"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="2"/><column name="lesson_id" valueNumeric="3"/>
+            <column name="date" valueDate="2025-09-11"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-11T10:00:00"/><column name="marked_by" valueNumeric="6"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="3"/><column name="lesson_id" valueNumeric="3"/>
+            <column name="date" valueDate="2025-09-11"/><column name="status" value="LATE"/>
+            <column name="comment" value="Опоздал на 2 минуты"/>
+            <column name="marked_at" valueDate="2025-09-11T10:00:00"/><column name="marked_by" valueNumeric="6"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="4"/><column name="lesson_id" valueNumeric="3"/>
+            <column name="date" valueDate="2025-09-11"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-11T10:00:00"/><column name="marked_by" valueNumeric="6"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="5"/><column name="lesson_id" valueNumeric="3"/>
+            <column name="date" valueDate="2025-09-11"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-11T10:00:00"/><column name="marked_by" valueNumeric="6"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="6"/><column name="lesson_id" valueNumeric="3"/>
+            <column name="date" valueDate="2025-09-11"/><column name="status" value="ABSENT"/>
+            <column name="comment" value="По семейным обстоятельствам"/>
+            <column name="marked_at" valueDate="2025-09-11T10:00:00"/><column name="marked_by" valueNumeric="6"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="7"/><column name="lesson_id" valueNumeric="3"/>
+            <column name="date" valueDate="2025-09-11"/><column name="status" value="EXCUSED_ABSENT"/>
+            <column name="comment" value="Участие в олимпиаде по математике"/>
+            <column name="marked_at" valueDate="2025-09-11T10:00:00"/><column name="marked_by" valueNumeric="6"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="8"/><column name="lesson_id" valueNumeric="3"/>
+            <column name="date" valueDate="2025-09-11"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-11T10:00:00"/><column name="marked_by" valueNumeric="6"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="1"/><column name="lesson_id" valueNumeric="5"/>
+            <column name="date" valueDate="2025-09-12"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-12T10:00:00"/><column name="marked_by" valueNumeric="8"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="2"/><column name="lesson_id" valueNumeric="5"/>
+            <column name="date" valueDate="2025-09-12"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-12T10:00:00"/><column name="marked_by" valueNumeric="8"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="3"/><column name="lesson_id" valueNumeric="5"/>
+            <column name="date" valueDate="2025-09-12"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-12T10:00:00"/><column name="marked_by" valueNumeric="8"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="4"/><column name="lesson_id" valueNumeric="5"/>
+            <column name="date" valueDate="2025-09-12"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-12T10:00:00"/><column name="marked_by" valueNumeric="8"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="5"/><column name="lesson_id" valueNumeric="5"/>
+            <column name="date" valueDate="2025-09-12"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-12T10:00:00"/><column name="marked_by" valueNumeric="8"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="6"/><column name="lesson_id" valueNumeric="5"/>
+            <column name="date" valueDate="2025-09-12"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-12T10:00:00"/><column name="marked_by" valueNumeric="8"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="7"/><column name="lesson_id" valueNumeric="5"/>
+            <column name="date" valueDate="2025-09-12"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-12T10:00:00"/><column name="marked_by" valueNumeric="8"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="8"/><column name="lesson_id" valueNumeric="5"/>
+            <column name="date" valueDate="2025-09-12"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-12T10:00:00"/><column name="marked_by" valueNumeric="8"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="9"/><column name="lesson_id" valueNumeric="24"/>
+            <column name="date" valueDate="2025-09-08"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-08T10:00:00"/><column name="marked_by" valueNumeric="4"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="10"/><column name="lesson_id" valueNumeric="24"/>
+            <column name="date" valueDate="2025-09-08"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-08T10:00:00"/><column name="marked_by" valueNumeric="4"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="11"/><column name="lesson_id" valueNumeric="24"/>
+            <column name="date" valueDate="2025-09-08"/><column name="status" value="LATE"/>
+            <column name="comment" value="Опоздал на 5 минут"/>
+            <column name="marked_at" valueDate="2025-09-08T10:00:00"/><column name="marked_by" valueNumeric="4"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="12"/><column name="lesson_id" valueNumeric="24"/>
+            <column name="date" valueDate="2025-09-08"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-08T10:00:00"/><column name="marked_by" valueNumeric="4"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="13"/><column name="lesson_id" valueNumeric="24"/>
+            <column name="date" valueDate="2025-09-08"/><column name="status" value="ABSENT"/>
+            <column name="comment" value="Болеет"/>
+            <column name="marked_at" valueDate="2025-09-08T10:00:00"/><column name="marked_by" valueNumeric="4"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="14"/><column name="lesson_id" valueNumeric="24"/>
+            <column name="date" valueDate="2025-09-08"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-08T10:00:00"/><column name="marked_by" valueNumeric="4"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="9"/><column name="lesson_id" valueNumeric="25"/>
+            <column name="date" valueDate="2025-09-08"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-08T11:00:00"/><column name="marked_by" valueNumeric="1"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="10"/><column name="lesson_id" valueNumeric="25"/>
+            <column name="date" valueDate="2025-09-08"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-08T11:00:00"/><column name="marked_by" valueNumeric="1"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="11"/><column name="lesson_id" valueNumeric="25"/>
+            <column name="date" valueDate="2025-09-08"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-08T11:00:00"/><column name="marked_by" valueNumeric="1"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="12"/><column name="lesson_id" valueNumeric="25"/>
+            <column name="date" valueDate="2025-09-08"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-08T11:00:00"/><column name="marked_by" valueNumeric="1"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="13"/><column name="lesson_id" valueNumeric="25"/>
+            <column name="date" valueDate="2025-09-08"/><column name="status" value="ABSENT"/>
+            <column name="comment" value="Болеет"/>
+            <column name="marked_at" valueDate="2025-09-08T11:00:00"/><column name="marked_by" valueNumeric="1"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="14"/><column name="lesson_id" valueNumeric="25"/>
+            <column name="date" valueDate="2025-09-08"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-08T11:00:00"/><column name="marked_by" valueNumeric="1"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="15"/><column name="lesson_id" valueNumeric="46"/>
+            <column name="date" valueDate="2025-09-08"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-08T10:00:00"/><column name="marked_by" valueNumeric="3"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="16"/><column name="lesson_id" valueNumeric="46"/>
+            <column name="date" valueDate="2025-09-08"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-08T10:00:00"/><column name="marked_by" valueNumeric="3"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="17"/><column name="lesson_id" valueNumeric="46"/>
+            <column name="date" valueDate="2025-09-08"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-08T10:00:00"/><column name="marked_by" valueNumeric="3"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="15"/><column name="lesson_id" valueNumeric="48"/>
+            <column name="date" valueDate="2025-09-15"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-15T10:00:00"/><column name="marked_by" valueNumeric="6"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="16"/><column name="lesson_id" valueNumeric="48"/>
+            <column name="date" valueDate="2025-09-15"/><column name="status" value="EXCUSED_ABSENT"/>
+            <column name="comment" value="Медицинская справка"/>
+            <column name="marked_at" valueDate="2025-09-15T10:00:00"/><column name="marked_by" valueNumeric="6"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="17"/><column name="lesson_id" valueNumeric="48"/>
+            <column name="date" valueDate="2025-09-15"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-15T10:00:00"/><column name="marked_by" valueNumeric="6"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="1"/><column name="lesson_id" valueNumeric="11"/>
+            <column name="date" valueDate="2025-09-17"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-17T10:00:00"/><column name="marked_by" valueNumeric="5"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="2"/><column name="lesson_id" valueNumeric="11"/>
+            <column name="date" valueDate="2025-09-17"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-17T10:00:00"/><column name="marked_by" valueNumeric="5"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="3"/><column name="lesson_id" valueNumeric="11"/>
+            <column name="date" valueDate="2025-09-17"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-17T10:00:00"/><column name="marked_by" valueNumeric="5"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="4"/><column name="lesson_id" valueNumeric="11"/>
+            <column name="date" valueDate="2025-09-17"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-17T10:00:00"/><column name="marked_by" valueNumeric="5"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="5"/><column name="lesson_id" valueNumeric="11"/>
+            <column name="date" valueDate="2025-09-17"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-17T10:00:00"/><column name="marked_by" valueNumeric="5"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="6"/><column name="lesson_id" valueNumeric="11"/>
+            <column name="date" valueDate="2025-09-17"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-17T10:00:00"/><column name="marked_by" valueNumeric="5"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="7"/><column name="lesson_id" valueNumeric="11"/>
+            <column name="date" valueDate="2025-09-17"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-17T10:00:00"/><column name="marked_by" valueNumeric="5"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="8"/><column name="lesson_id" valueNumeric="11"/>
+            <column name="date" valueDate="2025-09-17"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-09-17T10:00:00"/><column name="marked_by" valueNumeric="5"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="1"/><column name="lesson_id" valueNumeric="18"/>
+            <column name="date" valueDate="2025-10-02"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-10-02T10:00:00"/><column name="marked_by" valueNumeric="6"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="2"/><column name="lesson_id" valueNumeric="18"/>
+            <column name="date" valueDate="2025-10-02"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-10-02T10:00:00"/><column name="marked_by" valueNumeric="6"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="3"/><column name="lesson_id" valueNumeric="18"/>
+            <column name="date" valueDate="2025-10-02"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-10-02T10:00:00"/><column name="marked_by" valueNumeric="6"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="4"/><column name="lesson_id" valueNumeric="18"/>
+            <column name="date" valueDate="2025-10-02"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-10-02T10:00:00"/><column name="marked_by" valueNumeric="6"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="5"/><column name="lesson_id" valueNumeric="18"/>
+            <column name="date" valueDate="2025-10-02"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-10-02T10:00:00"/><column name="marked_by" valueNumeric="6"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="6"/><column name="lesson_id" valueNumeric="18"/>
+            <column name="date" valueDate="2025-10-02"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-10-02T10:00:00"/><column name="marked_by" valueNumeric="6"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="7"/><column name="lesson_id" valueNumeric="18"/>
+            <column name="date" valueDate="2025-10-02"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-10-02T10:00:00"/><column name="marked_by" valueNumeric="6"/>
+        </insert>
+        <insert tableName="attendance">
+            <column name="student_id" valueNumeric="8"/><column name="lesson_id" valueNumeric="18"/>
+            <column name="date" valueDate="2025-10-02"/><column name="status" value="PRESENT"/>
+            <column name="marked_at" valueDate="2025-10-02T10:00:00"/><column name="marked_by" valueNumeric="6"/>
+        </insert>
+    </changeSet>
+    <changeSet id="reseed-assignments" author="eduhab">
+        <insert tableName="assignments">
+            <column name="id" valueNumeric="1"/>
+            <column name="title" value="Домашнее задание по алгебре"/>
+            <column name="description" value="Решить задачи №1-10 на странице 45 из учебника"/>
+            <column name="subject_id" valueNumeric="1"/><column name="teacher_id" valueNumeric="1"/>
+            <column name="group_id" valueNumeric="1"/>
+            <column name="assigned_date" valueDate="2025-09-08"/><column name="due_date" valueDate="2025-09-15"/>
+            <column name="assignment_type" value="HOMEWORK"/><column name="max_points" valueNumeric="10"/>
+            <column name="created_at" valueDate="2025-09-08T12:00:00"/>
+        </insert>
+        <insert tableName="assignments">
+            <column name="id" valueNumeric="2"/>
+            <column name="title" value="Подготовка к контрольной работе по алгебре"/>
+            <column name="description" value="Повторить темы: квадратные уравнения, теорема Виета"/>
+            <column name="subject_id" valueNumeric="1"/><column name="teacher_id" valueNumeric="1"/>
+            <column name="group_id" valueNumeric="1"/>
+            <column name="assigned_date" valueDate="2025-09-29"/><column name="due_date" valueDate="2025-10-06"/>
+            <column name="assignment_type" value="PREPARATION"/><column name="max_points" valueNumeric="0"/>
+            <column name="created_at" valueDate="2025-09-29T12:00:00"/>
+        </insert>
+        <insert tableName="assignments">
+            <column name="id" valueNumeric="3"/>
+            <column name="title" value="Сочинение по литературе"/>
+            <column name="description" value="Написать сочинение на тему &apos;Мой любимый литературный герой&apos;"/>
+            <column name="subject_id" valueNumeric="4"/><column name="teacher_id" valueNumeric="3"/>
+            <column name="group_id" valueNumeric="1"/>
+            <column name="assigned_date" valueDate="2025-09-22"/><column name="due_date" valueDate="2025-10-06"/>
+            <column name="assignment_type" value="ESSAY"/><column name="max_points" valueNumeric="20"/>
+            <column name="created_at" valueDate="2025-09-22T12:00:00"/>
+        </insert>
+        <insert tableName="assignments">
+            <column name="id" valueNumeric="4"/>
+            <column name="title" value="Упражнения по русскому языку"/>
+            <column name="description" value="Выполнить упражнения 120-130 из учебника"/>
+            <column name="subject_id" valueNumeric="3"/><column name="teacher_id" valueNumeric="3"/>
+            <column name="group_id" valueNumeric="1"/>
+            <column name="assigned_date" valueDate="2025-09-15"/><column name="due_date" valueDate="2025-09-22"/>
+            <column name="assignment_type" value="HOMEWORK"/><column name="max_points" valueNumeric="10"/>
+            <column name="created_at" valueDate="2025-09-15T12:00:00"/>
+        </insert>
+        <insert tableName="assignments">
+            <column name="id" valueNumeric="5"/>
+            <column name="title" value="Лабораторная работа по физике"/>
+            <column name="description" value="Оформить отчёт по лабораторной работе &apos;Измерение силы тока&apos;"/>
+            <column name="subject_id" valueNumeric="5"/><column name="teacher_id" valueNumeric="4"/>
+            <column name="group_id" valueNumeric="1"/>
+            <column name="assigned_date" valueDate="2025-10-20"/><column name="due_date" valueDate="2025-10-27"/>
+            <column name="assignment_type" value="LAB_WORK"/><column name="max_points" valueNumeric="15"/>
+            <column name="created_at" valueDate="2025-10-20T12:00:00"/>
+        </insert>
+        <insert tableName="assignments">
+            <column name="id" valueNumeric="6"/>
+            <column name="title" value="Задание по информатике"/>
+            <column name="description" value="Создать презентацию на тему &apos;История компьютеров&apos;"/>
+            <column name="subject_id" valueNumeric="6"/><column name="teacher_id" valueNumeric="5"/>
+            <column name="group_id" valueNumeric="1"/>
+            <column name="assigned_date" valueDate="2025-10-06"/><column name="due_date" valueDate="2025-10-20"/>
+            <column name="assignment_type" value="PROJECT"/><column name="max_points" valueNumeric="20"/>
+            <column name="created_at" valueDate="2025-10-06T12:00:00"/>
+        </insert>
+        <insert tableName="assignments">
+            <column name="id" valueNumeric="7"/>
+            <column name="title" value="Домашнее задание по английскому языку"/>
+            <column name="description" value="Перевести текст на странице 50, выучить новые слова"/>
+            <column name="subject_id" valueNumeric="7"/><column name="teacher_id" valueNumeric="6"/>
+            <column name="group_id" valueNumeric="1"/>
+            <column name="assigned_date" valueDate="2025-09-11"/><column name="due_date" valueDate="2025-09-18"/>
+            <column name="assignment_type" value="HOMEWORK"/><column name="max_points" valueNumeric="10"/>
+            <column name="created_at" valueDate="2025-09-11T12:00:00"/>
+        </insert>
+        <insert tableName="assignments">
+            <column name="id" valueNumeric="8"/>
+            <column name="title" value="Реферат по истории"/>
+            <column name="description" value="Подготовить реферат на тему &apos;Древняя Русь&apos;"/>
+            <column name="subject_id" valueNumeric="9"/><column name="teacher_id" valueNumeric="8"/>
+            <column name="group_id" valueNumeric="1"/>
+            <column name="assigned_date" valueDate="2025-10-13"/><column name="due_date" valueDate="2025-10-27"/>
+            <column name="assignment_type" value="ESSAY"/><column name="max_points" valueNumeric="20"/>
+            <column name="created_at" valueDate="2025-10-13T12:00:00"/>
+        </insert>
+        <insert tableName="assignments">
+            <column name="id" valueNumeric="9"/>
+            <column name="title" value="Задание по физике (9Б)"/>
+            <column name="description" value="Решить задачи по теме &apos;Законы Ньютона&apos;"/>
+            <column name="subject_id" valueNumeric="5"/><column name="teacher_id" valueNumeric="4"/>
+            <column name="group_id" valueNumeric="2"/>
+            <column name="assigned_date" valueDate="2025-09-08"/><column name="due_date" valueDate="2025-09-15"/>
+            <column name="assignment_type" value="HOMEWORK"/><column name="max_points" valueNumeric="10"/>
+            <column name="created_at" valueDate="2025-09-08T12:00:00"/>
+        </insert>
+        <insert tableName="assignments">
+            <column name="id" valueNumeric="10"/>
+            <column name="title" value="Эссе по обществознанию (11А)"/>
+            <column name="description" value="Написать эссе на тему &apos;Роль государства в экономике&apos;"/>
+            <column name="subject_id" valueNumeric="11"/><column name="teacher_id" valueNumeric="8"/>
+            <column name="group_id" valueNumeric="3"/>
+            <column name="assigned_date" valueDate="2025-09-15"/><column name="due_date" valueDate="2025-10-06"/>
+            <column name="assignment_type" value="ESSAY"/><column name="max_points" valueNumeric="20"/>
+            <column name="created_at" valueDate="2025-09-15T12:00:00"/>
+        </insert>
+        <insert tableName="assignments">
+            <column name="id" valueNumeric="11"/>
+            <column name="title" value="Доклад по биологии (11А)"/>
+            <column name="description" value="Подготовить доклад на тему &apos;Генетика человека&apos;"/>
+            <column name="subject_id" valueNumeric="10"/><column name="teacher_id" valueNumeric="9"/>
+            <column name="group_id" valueNumeric="3"/>
+            <column name="assigned_date" valueDate="2025-10-01"/><column name="due_date" valueDate="2025-10-22"/>
+            <column name="assignment_type" value="PROJECT"/><column name="max_points" valueNumeric="20"/>
+            <column name="created_at" valueDate="2025-10-01T12:00:00"/>
+        </insert>
+        <insert tableName="assignments">
+            <column name="id" valueNumeric="12"/>
+            <column name="title" value="Подготовка к ОГЭ (9Б)"/>
+            <column name="description" value="Решить варианты ОГЭ по математике №5-8"/>
+            <column name="subject_id" valueNumeric="1"/><column name="teacher_id" valueNumeric="1"/>
+            <column name="group_id" valueNumeric="2"/>
+            <column name="assigned_date" valueDate="2025-10-20"/><column name="due_date" valueDate="2025-11-03"/>
+            <column name="assignment_type" value="PREPARATION"/><column name="max_points" valueNumeric="0"/>
+            <column name="created_at" valueDate="2025-10-20T12:00:00"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="reseed-homework-completions" author="eduhab">
+        <insert tableName="homework_completions">
+            <column name="assignment_id" valueNumeric="1"/><column name="student_id" valueNumeric="1"/>
+            <column name="status" value="COMPLETED"/>
+            <column name="submitted_at" valueDate="2025-09-14T18:00:00"/>
+            <column name="received_points" valueNumeric="10"/>
+            <column name="graded_at" valueDate="2025-09-15T10:00:00"/>
+        </insert>
+        <insert tableName="homework_completions">
+            <column name="assignment_id" valueNumeric="1"/><column name="student_id" valueNumeric="2"/>
+            <column name="status" value="COMPLETED"/>
+            <column name="submitted_at" valueDate="2025-09-14T19:00:00"/>
+            <column name="received_points" valueNumeric="8"/>
+            <column name="graded_at" valueDate="2025-09-15T10:00:00"/>
+        </insert>
+        <insert tableName="homework_completions">
+            <column name="assignment_id" valueNumeric="1"/><column name="student_id" valueNumeric="3"/>
+            <column name="status" value="SUBMITTED"/>
+            <column name="submitted_at" valueDate="2025-09-15T07:00:00"/>
+        </insert>
+        <insert tableName="homework_completions">
+            <column name="assignment_id" valueNumeric="1"/><column name="student_id" valueNumeric="4"/>
+            <column name="status" value="COMPLETED"/>
+            <column name="submitted_at" valueDate="2025-09-14T16:00:00"/>
+            <column name="received_points" valueNumeric="10"/>
+            <column name="graded_at" valueDate="2025-09-15T10:00:00"/>
+        </insert>
+        <insert tableName="homework_completions">
+            <column name="assignment_id" valueNumeric="1"/><column name="student_id" valueNumeric="5"/>
+            <column name="status" value="SUBMITTED"/>
+            <column name="submitted_at" valueDate="2025-09-14T20:00:00"/>
+        </insert>
+        <insert tableName="homework_completions">
+            <column name="assignment_id" valueNumeric="1"/><column name="student_id" valueNumeric="6"/>
+            <column name="status" value="IN_PROGRESS"/>
+        </insert>
+        <insert tableName="homework_completions">
+            <column name="assignment_id" valueNumeric="1"/><column name="student_id" valueNumeric="7"/>
+            <column name="status" value="NOT_STARTED"/>
+        </insert>
+        <insert tableName="homework_completions">
+            <column name="assignment_id" valueNumeric="1"/><column name="student_id" valueNumeric="8"/>
+            <column name="status" value="COMPLETED"/>
+            <column name="submitted_at" valueDate="2025-09-13T15:00:00"/>
+            <column name="received_points" valueNumeric="10"/>
+            <column name="graded_at" valueDate="2025-09-15T10:00:00"/>
+        </insert>
+        <insert tableName="homework_completions">
+            <column name="assignment_id" valueNumeric="3"/><column name="student_id" valueNumeric="1"/>
+            <column name="status" value="SUBMITTED"/>
+            <column name="submitted_at" valueDate="2025-10-05T18:00:00"/>
+        </insert>
+        <insert tableName="homework_completions">
+            <column name="assignment_id" valueNumeric="3"/><column name="student_id" valueNumeric="4"/>
+            <column name="status" value="COMPLETED"/>
+            <column name="submitted_at" valueDate="2025-10-04T12:00:00"/>
+            <column name="received_points" valueNumeric="18"/>
+            <column name="graded_at" valueDate="2025-10-06T10:00:00"/>
+        </insert>
+        <insert tableName="homework_completions">
+            <column name="assignment_id" valueNumeric="4"/><column name="student_id" valueNumeric="1"/>
+            <column name="status" value="COMPLETED"/>
+            <column name="submitted_at" valueDate="2025-09-21T17:00:00"/>
+            <column name="received_points" valueNumeric="10"/>
+            <column name="graded_at" valueDate="2025-09-22T10:00:00"/>
+        </insert>
+        <insert tableName="homework_completions">
+            <column name="assignment_id" valueNumeric="7"/><column name="student_id" valueNumeric="1"/>
+            <column name="status" value="COMPLETED"/>
+            <column name="submitted_at" valueDate="2025-09-17T19:00:00"/>
+            <column name="received_points" valueNumeric="9"/>
+            <column name="graded_at" valueDate="2025-09-18T10:00:00"/>
+        </insert>
+    </changeSet>
+    <changeSet id="reseed-announcements" author="eduhab">
+        <insert tableName="announcements">
+            <column name="id" valueNumeric="1"/>
+            <column name="title" value="Родительское собрание"/>
+            <column name="content" value="Уважаемые родители! Приглашаем вас на родительское собрание, которое состоится 15 сентября в 18:00 в актовом зале."/>
+            <column name="author_id" valueNumeric="1"/>
+            <column name="priority" value="NORMAL"/>
+            <column name="created_at" valueDate="2025-09-08T09:00:00"/>
+            <column name="is_published" valueBoolean="true"/>
+            <column name="is_pinned" valueBoolean="true"/>
+        </insert>
+        <insert tableName="announcements">
+            <column name="id" valueNumeric="2"/>
+            <column name="title" value="Изменение в расписании"/>
+            <column name="content" value="В связи с проведением олимпиады, уроки 20 сентября будут сокращены до 30 минут."/>
+            <column name="author_id" valueNumeric="2"/>
+            <column name="target_group_id" valueNumeric="1"/>
+            <column name="priority" value="IMPORTANT"/>
+            <column name="created_at" valueDate="2025-09-15T08:00:00"/>
+            <column name="is_published" valueBoolean="true"/>
+        </insert>
+        <insert tableName="announcements">
+            <column name="id" valueNumeric="3"/>
+            <column name="title" value="Конкурс проектных работ"/>
+            <column name="content" value="Объявляется приём заявок на участие в конкурсе проектных работ. Подробности у классного руководителя."/>
+            <column name="author_id" valueNumeric="5"/>
+            <column name="priority" value="NORMAL"/>
+            <column name="created_at" valueDate="2025-09-22T10:00:00"/>
+            <column name="is_published" valueBoolean="true"/>
+        </insert>
+        <insert tableName="announcements">
+            <column name="id" valueNumeric="4"/>
+            <column name="title" value="Каникулы с 28 октября"/>
+            <column name="content" value="Осенние каникулы продлятся с 28 октября по 5 ноября. Занятия возобновятся 6 ноября."/>
+            <column name="author_id" valueNumeric="1"/>
+            <column name="priority" value="IMPORTANT"/>
+            <column name="created_at" valueDate="2025-10-20T09:00:00"/>
+            <column name="is_published" valueBoolean="true"/>
+            <column name="is_pinned" valueBoolean="true"/>
+        </insert>
+        <insert tableName="announcements">
+            <column name="id" valueNumeric="5"/>
+            <column name="title" value="Пробный ОГЭ для 9 классов"/>
+            <column name="content" value="22 ноября состоится пробный ОГЭ по математике для учащихся 9 классов."/>
+            <column name="author_id" valueNumeric="2"/>
+            <column name="target_group_id" valueNumeric="2"/>
+            <column name="priority" value="IMPORTANT"/>
+            <column name="created_at" valueDate="2025-11-10T09:00:00"/>
+            <column name="is_published" valueBoolean="true"/>
+        </insert>
+        <insert tableName="announcements">
+            <column name="id" valueNumeric="6"/>
+            <column name="title" value="Итоговое сочинение 11 класс"/>
+            <column name="content" value="Напоминаем, что итоговое сочинение для 11 классов состоится 3 декабря."/>
+            <column name="author_id" valueNumeric="3"/>
+            <column name="target_group_id" valueNumeric="3"/>
+            <column name="priority" value="HIGH"/>
+            <column name="created_at" valueDate="2025-11-20T09:00:00"/>
+            <column name="is_published" valueBoolean="true"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="reseed-announcement-reads" author="eduhab">
+        <insert tableName="announcement_reads">
+            <column name="announcement_id" valueNumeric="1"/><column name="student_id" valueNumeric="1"/>
+            <column name="read_at" valueDate="2025-09-08T12:00:00"/>
+        </insert>
+        <insert tableName="announcement_reads">
+            <column name="announcement_id" valueNumeric="1"/><column name="student_id" valueNumeric="2"/>
+            <column name="read_at" valueDate="2025-09-08T12:30:00"/>
+        </insert>
+        <insert tableName="announcement_reads">
+            <column name="announcement_id" valueNumeric="1"/><column name="student_id" valueNumeric="3"/>
+            <column name="read_at" valueDate="2025-09-08T13:00:00"/>
+        </insert>
+        <insert tableName="announcement_reads">
+            <column name="announcement_id" valueNumeric="1"/><column name="student_id" valueNumeric="4"/>
+            <column name="read_at" valueDate="2025-09-08T14:00:00"/>
+        </insert>
+        <insert tableName="announcement_reads">
+            <column name="announcement_id" valueNumeric="2"/><column name="student_id" valueNumeric="1"/>
+            <column name="read_at" valueDate="2025-09-15T08:30:00"/>
+        </insert>
+        <insert tableName="announcement_reads">
+            <column name="announcement_id" valueNumeric="4"/><column name="student_id" valueNumeric="1"/>
+            <column name="read_at" valueDate="2025-10-20T10:00:00"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="reseed-notifications" author="eduhab">
+        <insert tableName="notifications">
+            <column name="user_id" valueNumeric="20"/>
+            <column name="title" value="Новая оценка"/>
+            <column name="message" value="Вы получили оценку 5 по Алгебре"/>
+            <column name="notification_type" value="NEW_GRADE"/>
+            <column name="created_at" valueDate="2025-09-08T10:00:00"/>
+        </insert>
+        <insert tableName="notifications">
+            <column name="user_id" valueNumeric="20"/>
+            <column name="title" value="Новая оценка"/>
+            <column name="message" value="Вы получили оценку 4 по Русскому языку"/>
+            <column name="notification_type" value="NEW_GRADE"/>
+            <column name="created_at" valueDate="2025-09-09T10:00:00"/>
+        </insert>
+        <insert tableName="notifications">
+            <column name="user_id" valueNumeric="20"/>
+            <column name="title" value="Домашнее задание"/>
+            <column name="message" value="Добавлено новое задание по Алгебре: Домашнее задание по алгебре"/>
+            <column name="notification_type" value="NEW_HOMEWORK"/>
+            <column name="created_at" valueDate="2025-09-08T12:00:00"/>
+        </insert>
+        <insert tableName="notifications">
+            <column name="user_id" valueNumeric="20"/>
+            <column name="title" value="Объявление"/>
+            <column name="message" value="Опубликовано новое объявление: Родительское собрание"/>
+            <column name="notification_type" value="ANNOUNCEMENT"/>
+            <column name="created_at" valueDate="2025-09-08T09:00:00"/>
+        </insert>
+        <insert tableName="notifications">
+            <column name="user_id" valueNumeric="20"/>
+            <column name="title" value="Новая оценка"/>
+            <column name="message" value="Вы получили оценку 4 по Физике"/>
+            <column name="notification_type" value="NEW_GRADE"/>
+            <column name="created_at" valueDate="2025-09-10T10:00:00"/>
+        </insert>
+        <insert tableName="notifications">
+            <column name="user_id" valueNumeric="20"/>
+            <column name="title" value="Новая оценка"/>
+            <column name="message" value="Вы получили оценку 4 по Английскому языку"/>
+            <column name="notification_type" value="NEW_GRADE"/>
+            <column name="created_at" valueDate="2025-09-11T10:00:00"/>
+        </insert>
+        <insert tableName="notifications">
+            <column name="user_id" valueNumeric="20"/>
+            <column name="title" value="Новая оценка"/>
+            <column name="message" value="Вы получили оценку 5 по Истории"/>
+            <column name="notification_type" value="NEW_GRADE"/>
+            <column name="created_at" valueDate="2025-09-12T10:00:00"/>
+        </insert>
+        <insert tableName="notifications">
+            <column name="user_id" valueNumeric="20"/>
+            <column name="title" value="Новая оценка"/>
+            <column name="message" value="Вы получили оценку 4 по Алгебре"/>
+            <column name="notification_type" value="NEW_GRADE"/>
+            <column name="created_at" valueDate="2025-09-15T10:00:00"/>
+        </insert>
+        <insert tableName="notifications">
+            <column name="user_id" valueNumeric="20"/>
+            <column name="title" value="Изменение в расписании"/>
+            <column name="message" value="Опубликовано важное объявление: Изменение в расписании"/>
+            <column name="notification_type" value="ANNOUNCEMENT"/>
+            <column name="created_at" valueDate="2025-09-15T08:00:00"/>
+        </insert>
+        <insert tableName="notifications">
+            <column name="user_id" valueNumeric="21"/>
+            <column name="title" value="Новая оценка"/>
+            <column name="message" value="Вы получили оценку 4 по Алгебре"/>
+            <column name="notification_type" value="NEW_GRADE"/>
+            <column name="created_at" valueDate="2025-09-08T10:00:00"/>
+        </insert>
+        <insert tableName="notifications">
+            <column name="user_id" valueNumeric="22"/>
+            <column name="title" value="Новая оценка"/>
+            <column name="message" value="Вы получили оценку 3 по Алгебре"/>
+            <column name="notification_type" value="NEW_GRADE"/>
+            <column name="created_at" valueDate="2025-09-08T10:00:00"/>
+        </insert>
+        <insert tableName="notifications">
+            <column name="user_id" valueNumeric="20"/>
+            <column name="title" value="Новая оценка"/>
+            <column name="message" value="Вы получили оценку 5 по Информатике"/>
+            <column name="notification_type" value="NEW_GRADE"/>
+            <column name="created_at" valueDate="2025-09-17T10:00:00"/>
+        </insert>
+        <insert tableName="notifications">
+            <column name="user_id" valueNumeric="20"/>
+            <column name="title" value="Новая оценка"/>
+            <column name="message" value="Вы получили оценку 4 по Биологии"/>
+            <column name="notification_type" value="NEW_GRADE"/>
+            <column name="created_at" valueDate="2025-09-18T10:00:00"/>
+        </insert>
+        <insert tableName="notifications">
+            <column name="user_id" valueNumeric="20"/>
+            <column name="title" value="Новая оценка"/>
+            <column name="message" value="Вы получили оценку 4 по Географии"/>
+            <column name="notification_type" value="NEW_GRADE"/>
+            <column name="created_at" valueDate="2025-09-19T10:00:00"/>
+        </insert>
+        <insert tableName="notifications">
+            <column name="user_id" valueNumeric="20"/>
+            <column name="title" value="Домашнее задание"/>
+            <column name="message" value="Добавлено новое задание по Литературе: Сочинение по литературе"/>
+            <column name="notification_type" value="NEW_HOMEWORK"/>
+            <column name="created_at" valueDate="2025-09-22T12:00:00"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="reseed-user-settings" author="eduhab">
+        <insert tableName="user_settings">
+            <column name="user_id" valueNumeric="20"/>
+        </insert>
+        <insert tableName="user_settings">
+            <column name="user_id" valueNumeric="21"/>
+        </insert>
+        <insert tableName="user_settings">
+            <column name="user_id" valueNumeric="22"/>
+        </insert>
+        <insert tableName="user_settings">
+            <column name="user_id" valueNumeric="23"/>
+        </insert>
+        <insert tableName="user_settings">
+            <column name="user_id" valueNumeric="24"/>
+        </insert>
+        <insert tableName="user_settings">
+            <column name="user_id" valueNumeric="25"/>
+        </insert>
+        <insert tableName="user_settings">
+            <column name="user_id" valueNumeric="26"/>
+        </insert>
+        <insert tableName="user_settings">
+            <column name="user_id" valueNumeric="27"/>
+        </insert>
+        <insert tableName="user_settings">
+            <column name="user_id" valueNumeric="28"/>
+        </insert>
+        <insert tableName="user_settings">
+            <column name="user_id" valueNumeric="29"/>
+        </insert>
+        <insert tableName="user_settings">
+            <column name="user_id" valueNumeric="30"/>
+        </insert>
+        <insert tableName="user_settings">
+            <column name="user_id" valueNumeric="31"/>
+        </insert>
+        <insert tableName="user_settings">
+            <column name="user_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="user_settings">
+            <column name="user_id" valueNumeric="33"/>
+        </insert>
+        <insert tableName="user_settings">
+            <column name="user_id" valueNumeric="34"/>
+        </insert>
+        <insert tableName="user_settings">
+            <column name="user_id" valueNumeric="35"/>
+        </insert>
+        <insert tableName="user_settings">
+            <column name="user_id" valueNumeric="36"/>
+        </insert>
+        <insert tableName="user_settings">
+            <column name="user_id" valueNumeric="40"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

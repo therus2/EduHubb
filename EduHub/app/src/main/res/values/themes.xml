@@ -1,0 +1,34 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    
+    <style name="Base.Theme.EduHub" parent="Theme.Material3.Light.NoActionBar">
+        
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
+
+    
+    <style name="gray_textfild_login" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="boxBackgroundColor">@color/gray_textfild_login</item>
+        <item name="hintTextColor">@color/black</item>
+        <item name="android:background">@null</item>
+    </style>
+
+
+
+
+    <style name="Theme.EduHub" parent="Base.Theme.EduHub" />
+
+    <style name="Theme.EduHub.BottomSheet" parent="Theme.Material3.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Widget.EduHub.BottomSheet</item>
+    </style>
+
+    <style name="Widget.EduHub.BottomSheet" parent="Widget.Material3.BottomSheet">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+</resources>

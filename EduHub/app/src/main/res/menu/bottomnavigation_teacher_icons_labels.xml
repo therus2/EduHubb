@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/teacherScheduleFragment"
+        android:icon="@drawable/bottomnavigation_schedule"
+        android:title="@string/bottomnavigation_schedule"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/teacherJournalFragment"
+        android:icon="@drawable/bottomnavigation_marks"
+        android:title="Журнал"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/teacherTasksFragment"
+        android:icon="@drawable/bottomnavigation_tasks"
+        android:title="@string/bottomnavigation_tasks"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/teacherProfileFragment"
+        android:icon="@drawable/bottomnavigation_school"
+        android:title="Школа"
+        app:showAsAction="ifRoom" />
+
+</menu>

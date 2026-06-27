@@ -1,0 +1,355 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="001-create-users" author="eduhab">
+        <createTable tableName="users">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password_hash" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="patronymic" type="VARCHAR(100)"/>
+            <column name="phone_number" type="VARCHAR(20)"/>
+            <column name="role" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP"/>
+            <column name="last_login_at" type="TIMESTAMP"/>
+            <column name="is_active" type="BOOLEAN" defaultValueBoolean="true"/>
+            <column name="avatar_url" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="002-create-student-groups" author="eduhab">
+        <createTable tableName="student_groups">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(20)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="course_number" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="specialization" type="VARCHAR(200)"/>
+            <column name="max_students" type="INT" defaultValueNumeric="30"/>
+            <column name="created_at" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="003-create-subjects" author="eduhab">
+        <createTable tableName="subjects">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(20)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="total_hours" type="INT" defaultValueNumeric="0"/>
+            <column name="credits" type="INT" defaultValueNumeric="0"/>
+            <column name="is_exam" type="BOOLEAN" defaultValueBoolean="false"/>
+            <column name="is_credit" type="BOOLEAN" defaultValueBoolean="false"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="004-create-teachers" author="eduhab">
+        <createTable tableName="teachers">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_teachers_user" references="users(id)"/>
+            </column>
+            <column name="employee_id" type="VARCHAR(50)">
+                <constraints unique="true"/>
+            </column>
+            <column name="department" type="VARCHAR(200)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="005-create-students" author="eduhab">
+        <createTable tableName="students">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_students_user" references="users(id)"/>
+            </column>
+            <column name="group_id" type="INT">
+                <constraints foreignKeyName="fk_students_group" references="student_groups(id)"/>
+            </column>
+            <column name="enrollment_date" type="DATE"/>
+            <column name="student_id_number" type="VARCHAR(50)">
+                <constraints unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="006-create-lessons" author="eduhab">
+        <createTable tableName="lessons">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="group_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_lessons_group" references="student_groups(id)"/>
+            </column>
+            <column name="subject_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_lessons_subject" references="subjects(id)"/>
+            </column>
+            <column name="teacher_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_lessons_teacher" references="teachers(id)"/>
+            </column>
+            <column name="day_of_week" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_time" type="TIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_time" type="TIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="classroom" type="VARCHAR(50)"/>
+            <column name="lesson_type" type="VARCHAR(30)"/>
+            <column name="week_number" type="INT" defaultValueNumeric="1"/>
+            <column name="is_alternating_week" type="BOOLEAN" defaultValueBoolean="false"/>
+            <column name="lesson_topic" type="TEXT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="007-create-grades" author="eduhab">
+        <createTable tableName="grades">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="student_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_grades_student" references="students(id)"/>
+            </column>
+            <column name="subject_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_grades_subject" references="subjects(id)"/>
+            </column>
+            <column name="teacher_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_grades_teacher" references="teachers(id)"/>
+            </column>
+            <column name="value" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="grade_type" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comment" type="TEXT"/>
+            <column name="lesson_id" type="INT">
+                <constraints foreignKeyName="fk_grades_lesson" references="lessons(id)"/>
+            </column>
+            <column name="weight" type="INT" defaultValueNumeric="1"/>
+            <column name="created_at" type="TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP"/>
+            <column name="updated_by" type="INT">
+                <constraints foreignKeyName="fk_grades_updated_by" references="teachers(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="008-create-attendance" author="eduhab">
+        <createTable tableName="attendance">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="student_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_attendance_student" references="students(id)"/>
+            </column>
+            <column name="lesson_id" type="INT">
+                <constraints foreignKeyName="fk_attendance_lesson" references="lessons(id)"/>
+            </column>
+            <column name="date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comment" type="TEXT"/>
+            <column name="marked_at" type="TIMESTAMP"/>
+            <column name="marked_by" type="INT">
+                <constraints foreignKeyName="fk_attendance_marked_by" references="teachers(id)"/>
+            </column>
+        </createTable>
+        <addUniqueConstraint tableName="attendance" columnNames="student_id, date, lesson_id"
+                             constraintName="uq_attendance_student_date_lesson"/>
+    </changeSet>
+
+    <changeSet id="009-create-assignments" author="eduhab">
+        <createTable tableName="assignments">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="subject_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_assignments_subject" references="subjects(id)"/>
+            </column>
+            <column name="teacher_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_assignments_teacher" references="teachers(id)"/>
+            </column>
+            <column name="group_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_assignments_group" references="student_groups(id)"/>
+            </column>
+            <column name="assigned_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="due_date" type="DATE"/>
+            <column name="assignment_type" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="attachments" type="TEXT"/>
+            <column name="max_points" type="INT"/>
+            <column name="created_at" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="010-create-homework-completions" author="eduhab">
+        <createTable tableName="homework_completions">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="assignment_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_hw_completions_assignment" references="assignments(id)"/>
+            </column>
+            <column name="student_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_hw_completions_student" references="students(id)"/>
+            </column>
+            <column name="status" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="student_comment" type="TEXT"/>
+            <column name="attachments" type="TEXT"/>
+            <column name="submitted_at" type="TIMESTAMP"/>
+            <column name="received_points" type="INT"/>
+            <column name="graded_at" type="TIMESTAMP"/>
+        </createTable>
+        <addUniqueConstraint tableName="homework_completions" columnNames="assignment_id, student_id"
+                             constraintName="uq_hw_completion_assignment_student"/>
+    </changeSet>
+
+    <changeSet id="011-create-announcements" author="eduhab">
+        <createTable tableName="announcements">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="content" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="author_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_announcements_author" references="teachers(id)"/>
+            </column>
+            <column name="target_group_id" type="INT">
+                <constraints foreignKeyName="fk_announcements_group" references="student_groups(id)"/>
+            </column>
+            <column name="priority" type="VARCHAR(20)" defaultValue="NORMAL"/>
+            <column name="created_at" type="TIMESTAMP"/>
+            <column name="published_at" type="TIMESTAMP"/>
+            <column name="expires_at" type="TIMESTAMP"/>
+            <column name="is_published" type="BOOLEAN" defaultValueBoolean="false"/>
+            <column name="is_pinned" type="BOOLEAN" defaultValueBoolean="false"/>
+            <column name="attachments" type="TEXT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="012-create-announcement-reads" author="eduhab">
+        <createTable tableName="announcement_reads">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="announcement_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_ann_reads_announcement" references="announcements(id)"/>
+            </column>
+            <column name="student_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_ann_reads_student" references="students(id)"/>
+            </column>
+            <column name="read_at" type="TIMESTAMP"/>
+        </createTable>
+        <addUniqueConstraint tableName="announcement_reads" columnNames="announcement_id, student_id"
+                             constraintName="uq_ann_read_announcement_student"/>
+    </changeSet>
+
+    <changeSet id="013-create-notifications" author="eduhab">
+        <createTable tableName="notifications">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_notifications_user" references="users(id)"/>
+            </column>
+            <column name="title" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="message" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="notification_type" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_read" type="BOOLEAN" defaultValueBoolean="false"/>
+            <column name="created_at" type="TIMESTAMP"/>
+            <column name="read_at" type="TIMESTAMP"/>
+            <column name="action_url" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="014-create-schedule-breaks" author="eduhab">
+        <createTable tableName="schedule_breaks">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="group_id" type="INT">
+                <constraints foreignKeyName="fk_schedule_breaks_group" references="student_groups(id)"/>
+            </column>
+            <column name="day_of_week" type="INT"/>
+            <column name="start_time" type="TIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_time" type="TIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="label" type="VARCHAR(100)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="015-create-user-settings" author="eduhab">
+        <createTable tableName="user_settings">
+            <column name="user_id" type="INT">
+                <constraints primaryKey="true" nullable="false" foreignKeyName="fk_user_settings_user" references="users(id)"/>
+            </column>
+            <column name="notify_new_grades" type="BOOLEAN" defaultValueBoolean="true"/>
+            <column name="notify_schedule_changes" type="BOOLEAN" defaultValueBoolean="true"/>
+            <column name="notify_homework" type="BOOLEAN" defaultValueBoolean="true"/>
+            <column name="notify_announcements" type="BOOLEAN" defaultValueBoolean="true"/>
+            <column name="theme" type="VARCHAR(20)" defaultValue="light"/>
+            <column name="language" type="VARCHAR(10)" defaultValue="ru"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

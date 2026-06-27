@@ -1,0 +1,16 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <include file="v1.0/001-create-tables.xml" relativeToChangelogFile="true"/>
+    <include file="v1.0/002-seed-data.xml" relativeToChangelogFile="true"/>
+    <include file="v1.0/003-full-reseed.xml" relativeToChangelogFile="true"/>
+    <include file="v1.0/004-extended-seed.xml" relativeToChangelogFile="true"/>
+    <include file="v1.0/005-complete-school-data.xml" relativeToChangelogFile="true"/>
+    <include file="v1.0/006-fix-cyrillic-encoding.xml" relativeToChangelogFile="true"/>
+    <include file="v1.0/007-extend-attendance-may.xml" relativeToChangelogFile="true"/>
+    <include file="v1.0/008-create-refresh-tokens-table.xml" relativeToChangelogFile="true"/>
+</databaseChangeLog>

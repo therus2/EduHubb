@@ -1,0 +1,10 @@
+target/
+.git/
+.idea/
+*.iml
+logs/
+*.log
+app.log
+app.err
+.DS_Store
+.env

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="input_gray">#EBEBEB</color>
+    <color name="gray_textfild_login">#EBEBEB</color>
+    <color name="purpul_button_login">#B787FF</color>
+    <color name="link_blue">#3F51B5</color>
+    <color name="text_hint">#9E9E9E</color>
+
+    <color name="calendar_border">#008EFF</color>
+    <color name="calendar_text_gray">#757575</color>
+    <color name="calendar_selected_purple">#8B29EE</color>
+
+    <color name="text_gray_secondary">#9E9E9E</color>
+    <color name="break_bg">#D9D9D9</color>
+    <color name="lesson_card_bg">#FFFFFF</color>
+    <color name="lesson_text_main">#000000</color>
+
+    
+    <color name="marks_purple_main">#9C27B0</color>
+    <color name="marks_purple_light">#E8D9FE</color>
+    <color name="marks_toggle_bg">#F4ECFF</color>
+    <color name="marks_text_gray">#757575</color>
+    <color name="marks_text_green">#4CAF50</color>
+    <color name="marks_text_red">#FF5252</color>
+    <color name="marks_red_light">#FFEBEE</color>
+    <color name="marks_gray_light">#F0F0F0</color>
+    <color name="marks_progress_bg">#E2D5F8</color>
+    <color name="marks_progress_fill">#9C51FC</color>
+
+    
+    <color name="tasks_status_in_progress_bg">#F4ECFF</color>
+    <color name="tasks_status_in_progress_text">#8B29EE</color>
+    <color name="tasks_status_review_bg">#FFF3E0</color>
+    <color name="tasks_status_review_text">#FF9800</color>
+    <color name="tasks_status_overdue_bg">#FFEBEB</color>
+    <color name="tasks_status_overdue_text">#F44336</color>
+    <color name="tasks_red_text">#F44336</color>
+    <color name="tasks_status_completed_bg">#E8F5E9</color>
+    <color name="tasks_status_completed_text">#2E7D32</color>
+
+    
+    
+    <color name="grade_bg_5">#E8F5E9</color>
+    <color name="grade_text_5">#2E7D32</color>
+    <color name="grade_bg_4">#E3F2FD</color>
+    <color name="grade_text_4">#1565C0</color>
+    <color name="grade_bg_3">#FFF8E1</color>
+    <color name="grade_text_3">#F57F17</color>
+    <color name="grade_bg_2">#FFEBEE</color>
+    <color name="grade_text_2">#C62828</color>
+    <color name="grade_bg_n">#F5F5F5</color>
+    <color name="grade_text_n">#757575</color>
+    <color name="grade_bg_b">#FFF3E0</color>
+    <color name="grade_text_b">#E65100</color>
+    <color name="grade_bg_zach">#F3E5F5</color>
+    <color name="grade_text_zach">#7B1FA2</color>
+
+    
+    <color name="grade_cell_empty_border">#E0E0E0</color>
+    <color name="grade_cell_empty_text">#BDBDBD</color>
+
+    
+    <color name="today_bg">#EADDFF</color>
+    <color name="today_text">#6750A4</color>
+    <color name="today_dot">#6750A4</color>
+
+    
+    <color name="journal_bg">#FAFAFA</color>
+    <color name="journal_card_bg">#FFFFFF</color>
+    <color name="journal_student_name">#1D1B20</color>
+    <color name="journal_avg_pill_bg">#F4ECFF</color>
+    <color name="journal_avg_pill_text">#6750A4</color>
+    <color name="journal_divider">#EEEEEE</color>
+
+    
+    <color name="nav_arrow">#6750A4</color>
+    <color name="nav_arrow_disabled">#CAC4D0</color>
+
+    
+    <color name="snackbar_bg">#1D1B20</color>
+    <color name="snackbar_text">#FFFFFF</color>
+    <color name="snackbar_action">#D0BCFF</color>
+
+    
+    <color name="avatar_bg">#F4ECFF</color>
+    <color name="avatar_initials_text">#8B29EE</color>
+    <color name="avatar_badge_bg">#8B29EE</color>
+    <color name="avatar_edit_overlay">#1A000000</color>
+</resources>

@@ -1,0 +1,47 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: eduhub-db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-eduhub}
+      POSTGRES_USER: ${POSTGRES_USER:-eduhub}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-eduhub123}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-eduhub} -d ${POSTGRES_DB:-eduhub}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: eduhub-backend:latest
+    container_name: eduhub-backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-prod}
+      SERVER_PORT: ${BACKEND_PORT:-8067}
+      DB_HOST: ${DB_HOST:-postgres}
+      DB_PORT: ${DB_PORT:-5432}
+      DB_NAME: ${DB_NAME:-eduhub}
+      DB_USER: ${DB_USER:-eduhub}
+      DB_PASSWORD: ${DB_PASSWORD:-eduhub123}
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required}
+      JWT_EXPIRATION: ${JWT_EXPIRATION:-1800000}
+      JWT_REFRESH_EXPIRATION: ${JWT_REFRESH_EXPIRATION:-2592000000}
+    ports:
+      - "${BACKEND_PORT:-8067}:${BACKEND_PORT:-8067}"
+    volumes:
+      - backend_logs:/app/logs
+    restart: unless-stopped
+
+volumes:
+  pg_data:
+  backend_logs:

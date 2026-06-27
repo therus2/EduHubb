@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_student"
+    app:startDestination="@id/scheduleFragment">
+
+    <fragment
+        android:id="@+id/scheduleFragment"
+        android:name="com.example.eduhub.schedule.fragments.ScheduleFragment"
+        android:label="Расписание">
+        <argument android:name="studentId" app:argType="string" />
+        <argument android:name="userId" app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/marksFragment"
+        android:name="com.example.eduhub.marks.MarksFragment"
+        android:label="Оценки">
+        <argument android:name="studentId" app:argType="string" />
+        <argument android:name="userId" app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/tasksFragment"
+        android:name="com.example.eduhub.tasks.TasksFragment"
+        android:label="Задания">
+        <argument android:name="studentId" app:argType="string" />
+        <argument android:name="userId" app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/schoolFragment"
+        android:name="com.example.eduhub.school.SchoolFragment"
+        android:label="Школа">
+        <argument android:name="studentId" app:argType="string" />
+        <argument android:name="userId" app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/attendanceFragment"
+        android:name="com.example.eduhub.school.attendance.AttendanceFragment"
+        android:label="Посещаемость">
+        <argument android:name="studentId" app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/announcementsFragment"
+        android:name="com.example.eduhub.school.announcements.AnnouncementsFragment"
+        android:label="Объявления">
+        <argument android:name="studentId" app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/subjectDetailsFragment"
+        android:name="com.example.eduhub.marks.subject.SubjectDetailsFragment"
+        android:label="Детали предмета">
+        <argument android:name="studentId" app:argType="string" />
+        <argument android:name="subjectId" app:argType="string" />
+        <argument android:name="subjectName" app:argType="string" />
+        <argument android:name="teacherName" app:argType="string" />
+        <argument android:name="average" app:argType="float" />
+        <argument android:name="gradeCount" app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.eduhub.settings.SettingsFragment"
+        android:label="Настройки">
+        <argument android:name="userId" app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.example.eduhub.notifications.NotificationsFragment"
+        android:label="Уведомления">
+        <argument android:name="userId" app:argType="string" />
+    </fragment>
+
+</navigation>

@@ -1,0 +1,37 @@
+server:
+  port: ${SERVER_PORT:8067}
+  servlet:
+    context-path: /api
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  profiles:
+    active: dev
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.xml
+
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    open-in-view: true
+
+jwt:
+  secret: ${JWT_SECRET:eduhub-jwt-secret-key-change-in-production}
+  expiration: ${JWT_EXPIRATION:43200000}
+  refresh-expiration: ${JWT_REFRESH_EXPIRATION:2592000000}
+
+logging:
+  level:
+    com.eduhab.config.RequestResponseLoggingFilter: INFO
+  file:
+    name: logs/backend-api.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/scheduleFragment"
+        android:icon="@drawable/bottomnavigation_schedule"
+        android:title="@string/bottomnavigation_schedule"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/marksFragment"
+        android:icon="@drawable/bottomnavigation_marks"
+        android:title="@string/bottomnavigation_marks"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/tasksFragment"
+        android:icon="@drawable/bottomnavigation_tasks"
+        android:title="@string/bottomnavigation_tasks"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/schoolFragment"
+        android:icon="@drawable/bottomnavigation_school"
+        android:title="@string/bottomnavigation_school"
+        app:showAsAction="ifRoom" />
+
+</menu>
