@@ -1638,7 +1638,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public Cursor findAssignmentsForTeacherWithStatsRaw(String teacherId) {
         SQLiteDatabase db = getReadableDatabase();
         String sql = "SELECT a.id, a.title, a.due_date, g.code AS group_code, "
-                   + "COUNT(c.id) AS total, "
+                   + "(SELECT COUNT(*) FROM " + TABLE_STUDENTS + " st WHERE st.group_id = a.group_id) AS total, "
                    + "SUM(CASE WHEN c.status IN ('SUBMITTED','COMPLETED') THEN 1 ELSE 0 END) AS submitted "
                    + "FROM " + TABLE_ASSIGNMENTS + " a "
                    + "JOIN " + TABLE_GROUPS + " g ON a.group_id = g.id "
@@ -1652,7 +1652,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public Cursor findAssignmentsForTeacherByDateRaw(String teacherId, String date) {
         SQLiteDatabase db = getReadableDatabase();
         String sql = "SELECT a.id, a.title, a.due_date, g.code AS group_code, g.id AS group_id, "
-                   + "COUNT(c.id) AS total, "
+                   + "(SELECT COUNT(*) FROM " + TABLE_STUDENTS + " st WHERE st.group_id = a.group_id) AS total, "
                    + "SUM(CASE WHEN c.status IN ('SUBMITTED','COMPLETED') THEN 1 ELSE 0 END) AS submitted "
                    + "FROM " + TABLE_ASSIGNMENTS + " a "
                    + "JOIN " + TABLE_GROUPS + " g ON a.group_id = g.id "
@@ -2258,7 +2258,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         String sql = "SELECT a.id, a.title, a.description, a.due_date, g.code AS group_code, "
                    + "s.name AS subject_name, "
-                   + "COUNT(c.id) AS total, "
+                   + "(SELECT COUNT(*) FROM " + TABLE_STUDENTS + " st WHERE st.group_id = a.group_id) AS total, "
                    + "SUM(CASE WHEN c.status IN ('SUBMITTED','COMPLETED') THEN 1 ELSE 0 END) AS submitted, "
                    + "SUM(CASE WHEN c.status = 'NOT_STARTED' AND a.due_date < date('now') THEN 1 ELSE 0 END) AS overdue_count, "
                    + "SUM(CASE WHEN c.status = 'SUBMITTED' THEN 1 ELSE 0 END) AS on_review "
@@ -2272,19 +2272,19 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     
-    public Cursor findSubmissionsForAssignmentWithDetailsRaw(String assignmentId) {
+    public Cursor findSubmissionsForAssignmentWithDetailsRaw(String assignmentId, String groupId) {
         SQLiteDatabase db = getReadableDatabase();
         String sql = "SELECT c.id AS completion_id, st.id AS student_id, "
                    + "COALESCE(c.status, 'NOT_STARTED') AS status, "
                    + "c.submitted_at, c.received_points, c.student_comment, c.graded_at, "
-                   + "u.last_name || ' ' || u.first_name AS student_name "
+                   + "COALESCE(u.last_name, '—') || ' ' || COALESCE(u.first_name, '') AS student_name "
                    + "FROM " + TABLE_ASSIGNMENTS + " a "
-                   + "JOIN " + TABLE_STUDENTS + " st ON st.group_id = a.group_id "
-                   + "JOIN " + TABLE_USERS + " u ON st.user_id = u.id "
+                   + "JOIN " + TABLE_STUDENTS + " st ON st.group_id = ? "
+                   + "LEFT JOIN " + TABLE_USERS + " u ON st.user_id = u.id "
                    + "LEFT JOIN " + TABLE_COMPLETIONS + " c ON c.assignment_id = a.id AND c.student_id = st.id "
                    + "WHERE a.id = ? "
-                   + "ORDER BY u.last_name";
-        return db.rawQuery(sql, new String[]{assignmentId});
+                   + "ORDER BY COALESCE(u.last_name, '')";
+        return db.rawQuery(sql, new String[]{groupId, assignmentId});
     }
 
     
@@ -2379,7 +2379,7 @@ public class DBHelper extends SQLiteOpenHelper {
     
 
     
-    public Cursor findStudentsByGroupForTeacher(String groupId, String teacherId) {
+    public Cursor findStudentsByGroup(String groupId) {
         SQLiteDatabase db = getReadableDatabase();
         String sql = "SELECT st.id AS student_id, "
                 + "u.last_name || ' ' || u.first_name || ' ' || COALESCE(u.patronymic, '') AS student_name, "
@@ -2392,28 +2392,28 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     
-    public Cursor findGradesByStudentForTeacher(String studentId, String teacherId) {
+    public Cursor findGradesByStudent(String studentId) {
         SQLiteDatabase db = getReadableDatabase();
         String sql = "SELECT g.id AS grade_id, g.value, g.grade_type, g.created_at, g.comment, "
-                + "s.name AS subject_name "
+                + "COALESCE(s.name, '—') AS subject_name "
                 + "FROM " + TABLE_GRADES + " g "
-                + "JOIN " + TABLE_SUBJECTS + " s ON g.subject_id = s.id "
-                + "WHERE g.student_id = ? AND g.teacher_id = ? "
+                + "LEFT JOIN " + TABLE_SUBJECTS + " s ON g.subject_id = s.id "
+                + "WHERE g.student_id = ? "
                 + "ORDER BY g.created_at DESC";
-        return db.rawQuery(sql, new String[]{studentId, teacherId});
+        return db.rawQuery(sql, new String[]{studentId});
     }
 
     
-    public Cursor findAttendanceByStudentForTeacher(String studentId, String teacherId) {
+    public Cursor findAttendanceByStudent(String studentId) {
         SQLiteDatabase db = getReadableDatabase();
         String sql = "SELECT a.id AS att_id, a.date, a.status, a.comment, "
-                + "l.lesson_topic, l.start_time, l.end_time, s.name AS subject_name "
+                + "l.lesson_topic, l.start_time, l.end_time, COALESCE(s.name, '—') AS subject_name "
                 + "FROM " + TABLE_ATTENDANCE + " a "
-                + "JOIN " + TABLE_LESSONS + " l ON a.lesson_id = l.id "
-                + "JOIN " + TABLE_SUBJECTS + " s ON l.subject_id = s.id "
-                + "WHERE a.student_id = ? AND l.teacher_id = ? "
+                + "LEFT JOIN " + TABLE_LESSONS + " l ON a.lesson_id = l.id "
+                + "LEFT JOIN " + TABLE_SUBJECTS + " s ON l.subject_id = s.id "
+                + "WHERE a.student_id = ? "
                 + "ORDER BY a.date DESC";
-        return db.rawQuery(sql, new String[]{studentId, teacherId});
+        return db.rawQuery(sql, new String[]{studentId});
     }
 
     

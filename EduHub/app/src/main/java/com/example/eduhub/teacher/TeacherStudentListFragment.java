@@ -38,7 +38,7 @@ public class TeacherStudentListFragment extends Fragment {
             teacherId = args.getString("teacherId");
         }
 
-        repository = new TeacherStudentRepository(requireContext(), teacherId);
+        repository = new TeacherStudentRepository(requireContext());
 
         TextView tvTitle = view.findViewById(R.id.tv_title);
         tvTitle.setText(groupName);

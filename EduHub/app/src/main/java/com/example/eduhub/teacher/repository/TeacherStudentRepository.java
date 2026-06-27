@@ -14,16 +14,14 @@ import java.util.List;
 public class TeacherStudentRepository {
 
     private final DBHelper dbHelper;
-    private final String teacherId;
 
-    public TeacherStudentRepository(Context context, String teacherId) {
+    public TeacherStudentRepository(Context context) {
         this.dbHelper = DBHelper.getInstance(context);
-        this.teacherId = teacherId;
     }
 
     public List<StudentInfoItem> getStudentsInGroup(String groupId) {
         List<StudentInfoItem> items = new ArrayList<>();
-        try (Cursor c = dbHelper.findStudentsByGroupForTeacher(groupId, teacherId)) {
+        try (Cursor c = dbHelper.findStudentsByGroup(groupId)) {
             while (c.moveToNext()) {
                 String id    = c.getString(c.getColumnIndexOrThrow("student_id"));
                 String name  = c.getString(c.getColumnIndexOrThrow("student_name"));
@@ -37,7 +35,7 @@ public class TeacherStudentRepository {
 
     public List<GradeDetailItem> getGrades(String studentId) {
         List<GradeDetailItem> items = new ArrayList<>();
-        try (Cursor c = dbHelper.findGradesByStudentForTeacher(studentId, teacherId)) {
+        try (Cursor c = dbHelper.findGradesByStudent(studentId)) {
             while (c.moveToNext()) {
                 String gId    = c.getString(c.getColumnIndexOrThrow("grade_id"));
                 int    value  = c.getInt(c.getColumnIndexOrThrow("value"));
@@ -55,20 +53,21 @@ public class TeacherStudentRepository {
     private String translateType(String type) {
         if (type == null) return "—";
         switch (type) {
-            case "CURRENT":    return "Текущая";
-            case "CONTROL":    return "Контрольная";
-            case "TEST":       return "Тест";
-            case "PRACTICAL":  return "Практическая";
-            case "EXAM":       return "Экзамен";
-            case "CREDIT":     return "Зачёт";
-            case "HOMEWORK":   return "Домашняя";
-            default:           return type;
+            case "CURRENT":      return "Текущая";
+            case "CONTROL":      return "Контрольная";
+            case "TEST":         return "Тест";
+            case "PRACTICAL":    return "Практическая";
+            case "EXAM":         return "Экзамен";
+            case "CREDIT":       return "Зачёт";
+            case "HOMEWORK":     return "Домашняя";
+            case "INDEPENDENT":  return "Самостоятельная";
+            default:             return type;
         }
     }
 
     public List<AttendanceDetailItem> getAttendance(String studentId) {
         List<AttendanceDetailItem> items = new ArrayList<>();
-        try (Cursor c = dbHelper.findAttendanceByStudentForTeacher(studentId, teacherId)) {
+        try (Cursor c = dbHelper.findAttendanceByStudent(studentId)) {
             while (c.moveToNext()) {
                 String attId  = c.getString(c.getColumnIndexOrThrow("att_id"));
                 String date   = c.getString(c.getColumnIndexOrThrow("date"));

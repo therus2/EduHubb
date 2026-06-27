@@ -112,6 +112,7 @@ public class SettingsFragment extends SyncRefreshFragment {
         btnLogout.setOnClickListener(v -> {
             com.example.eduhub.network.session.UserSessionManager
                     .getInstance(requireContext()).clearSession();
+            com.example.eduhub.network.RetrofitClient.clearTokens();
             new com.example.eduhub.network.sync.UserDataSyncManager(requireContext())
                     .clearSyncState();
             Intent intent = new Intent(requireActivity(), LoginActivity.class);

@@ -799,23 +799,31 @@ public class UserDataSyncManager {
         groupId = ApiMapUtils.normalizeId(groupId);
         try {
             List<Map<String, Object>> students = callList(RetrofitClient.getInstance().getApiService().getAllStudents(groupId));
+            Log.d("SyncStudents", "API returned " + (students != null ? students.size() : 0) + " students for group " + groupId);
             if (students != null) {
                 recordPull("students", students.size());
+                int saved = 0;
                 for (Map<String, Object> s : students) {
-                    Map<String, Object> user = safeMap(s, "user");
-                    if (user != null) saveUser(db, user);
-                    ContentValues sv = new ContentValues();
-                    sv.put("id", safeStr(s, "id"));
-                    sv.put("user_id", user != null ? safeStr(user, "id") : safeStr(s, "id"));
-                    sv.put("group_id", groupId);
-                    sv.put("enrollment_date", safeStr(s, "enrollmentDate"));
-                    sv.put("student_id_number", safeStr(s, "studentIdNumber"));
-                    db.insertRow(DBHelper.TABLE_STUDENTS, sv);
+                    try {
+                        Map<String, Object> user = safeMap(s, "user");
+                        if (user != null) saveUser(db, user);
+                        ContentValues sv = new ContentValues();
+                        sv.put("id", safeStr(s, "id"));
+                        sv.put("user_id", user != null ? safeStr(user, "id") : safeStr(s, "id"));
+                        sv.put("group_id", groupId);
+                        sv.put("enrollment_date", safeStr(s, "enrollmentDate"));
+                        sv.put("student_id_number", safeStr(s, "studentIdNumber"));
+                        db.insertRow(DBHelper.TABLE_STUDENTS, sv);
+                        saved++;
+                    } catch (Exception e) {
+                        Log.w("SyncStudents", "syncStudentsInGroup: skipping student " + safeStr(s, "id"), e);
+                    }
                 }
+                Log.d("SyncStudents", "Saved " + saved + "/" + students.size() + " students for group " + groupId);
                 return;
             }
         } catch (Exception e) {
-            Log.w(TAG, "API syncStudentsInGroup failed, loading local", e);
+            Log.w("SyncStudents", "API syncStudentsInGroup failed for group " + groupId + ", loading local", e);
         }
         loadStudentsFromLocal(db, groupId);
     }
@@ -910,6 +918,27 @@ public class UserDataSyncManager {
             Log.d(TAG, "Synced " + records.size() + " attendance records for student " + studentId);
         } catch (Exception e) {
             Log.w(TAG, "syncAttendanceForStudent failed", e);
+        }
+    }
+
+    public void syncStudentData(String studentId) {
+        DBHelper db = DBHelper.getInstance(context);
+        try {
+            int sid = parseApiId(studentId);
+            syncGradesForStudent(db, sid);
+            syncAttendanceForStudent(db, sid);
+        } catch (Exception e) {
+            Log.w(TAG, "syncStudentData failed for " + studentId, e);
+        }
+    }
+
+    public void syncGroupStudents(String groupId) {
+        DBHelper db = DBHelper.getInstance(context);
+        try {
+            syncStudentsInGroup(db, groupId);
+            syncHomeworkCompletionsForGroup(db, groupId);
+        } catch (Exception e) {
+            Log.w(TAG, "syncGroupStudents failed for " + groupId, e);
         }
     }
 

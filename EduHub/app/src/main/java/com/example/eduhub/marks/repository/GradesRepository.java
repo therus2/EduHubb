@@ -116,14 +116,15 @@ public class GradesRepository {
     private String translateType(String type) {
         if (type == null) return "—";
         switch (type) {
-            case "CURRENT":    return "Текущая";
-            case "CONTROL":    return "Контрольная";
-            case "TEST":       return "Тест";
-            case "PRACTICAL":  return "Практическая";
-            case "EXAM":       return "Экзамен";
-            case "CREDIT":     return "Зачёт";
-            case "HOMEWORK":   return "Домашняя";
-            default:           return type;
+            case "CURRENT":      return "Текущая";
+            case "CONTROL":      return "Контрольная";
+            case "TEST":         return "Тест";
+            case "PRACTICAL":    return "Практическая";
+            case "EXAM":         return "Экзамен";
+            case "CREDIT":       return "Зачёт";
+            case "HOMEWORK":     return "Домашняя";
+            case "INDEPENDENT":  return "Самостоятельная";
+            default:             return type;
         }
     }
 }

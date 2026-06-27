@@ -23,9 +23,16 @@ import dagger.hilt.android.HiltAndroidApp;
 @HiltAndroidApp
 public class EduHubApp extends Application {
 
+    private static EduHubApp instance;
+
+    public static EduHubApp getInstance() {
+        return instance;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         

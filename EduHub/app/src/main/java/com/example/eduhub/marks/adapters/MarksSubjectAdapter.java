@@ -77,7 +77,7 @@ public class MarksSubjectAdapter extends RecyclerView.Adapter<MarksSubjectAdapte
             args.putString("subjectId", item.getSubjectId());
             args.putString("subjectName", item.getSubjectName());
             args.putString("teacherName", item.getTeacherName());
-            args.putDouble("average", item.getAverage());
+            args.putFloat("average", (float) item.getAverage());
             args.putInt("gradeCount", item.getGradeCount());
             fragment.setArguments(args);
 

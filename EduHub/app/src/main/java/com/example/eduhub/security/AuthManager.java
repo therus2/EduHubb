@@ -52,66 +52,82 @@ public class AuthManager {
         }
     }
 
-    public boolean restoreExistingSession() {
+    public void restoreExistingSession(Runnable onSuccess, Runnable onFailure) {
         if (!sessionManager.isLoggedIn()) {
-            return false;
+            onFailure.run();
+            return;
         }
         String savedToken = sessionManager.getToken();
         String savedRefreshToken = sessionManager.getRefreshToken();
 
         if (savedToken == null && savedRefreshToken == null) {
             sessionManager.clearSession();
-            return false;
+            onFailure.run();
+            return;
         }
 
         RetrofitClient.setTokens(savedToken, savedRefreshToken);
 
-        if (!isNetworkAvailable()) {
+        if (isNetworkAvailable()) {
+            java.util.concurrent.ExecutorService executor = java.util.concurrent.Executors.newSingleThreadExecutor();
+            executor.execute(() -> {
+                try {
+                    Response<AuthResponse> response = RetrofitClient.getInstance()
+                            .getApiService()
+                            .getAuthMe()
+                            .execute();
+
+                    if (response.isSuccessful() && response.body() != null) {
+                        AuthResponse auth = response.body();
+                        String userId = String.valueOf(auth.getUserId());
+                        String role = RoleResolver.resolve(dbHelper, userId, auth.getRole(),
+                                auth.getStudentId(), auth.getTeacherId());
+
+                        if (RoleResolver.isNavigableRole(role)) {
+                            String studentId = auth.getStudentId() != null ? String.valueOf(auth.getStudentId()) : null;
+                            String teacherId = auth.getTeacherId() != null ? String.valueOf(auth.getTeacherId()) : null;
+                            String groupId = auth.getGroupId() != null ? String.valueOf(auth.getGroupId()) : null;
+
+                            sessionManager.saveSession(userId, role,
+                                    auth.getFirstName(), auth.getLastName(), auth.getPatronymic(),
+                                    sessionManager.getEmail(), groupId, auth.getGroupName(),
+                                    studentId, teacherId);
+
+                            String currentAccess = RetrofitClient.getAccessToken();
+                            String currentRefresh = RetrofitClient.getRefreshToken();
+                            if (currentAccess != null) {
+                                sessionManager.saveToken(currentAccess);
+                                sessionManager.saveRefreshToken(currentRefresh);
+                            }
+
+                            UserDataSyncManager sync = new UserDataSyncManager(context);
+                            sync.refreshInBackground(userId, role);
+
+                            onSuccess.run();
+                            return;
+                        }
+                    }
+                } catch (Exception ignored) {
+                }
+
+                sessionManager.clearSession();
+                RetrofitClient.clearTokens();
+                onFailure.run();
+            });
+            executor.shutdown();
+        } else {
             String userId = sessionManager.getUserId();
             String role = RoleResolver.resolve(dbHelper, userId, sessionManager.getRole(),
                     parsePositiveInt(sessionManager.getStudentId()),
                     parsePositiveInt(sessionManager.getTeacherId()));
             if (RoleResolver.isNavigableRole(role)) {
-                return true;
+                onSuccess.run();
+            } else {
+                sessionManager.clearSession();
+                RetrofitClient.clearTokens();
+                onFailure.run();
             }
-            sessionManager.clearSession();
-            RetrofitClient.clearTokens();
-            return false;
         }
-
-        try {
-            Response<AuthResponse> response = RetrofitClient.getInstance()
-                    .getApiService()
-                    .getAuthMe()
-                    .execute();
-
-            if (response.isSuccessful() && response.body() != null) {
-                AuthResponse auth = response.body();
-                String userId = String.valueOf(auth.getUserId());
-                String role = RoleResolver.resolve(dbHelper, userId, auth.getRole(),
-                        auth.getStudentId(), auth.getTeacherId());
-
-                if (RoleResolver.isNavigableRole(role)) {
-                    String studentId = auth.getStudentId() != null ? String.valueOf(auth.getStudentId()) : null;
-                    String teacherId = auth.getTeacherId() != null ? String.valueOf(auth.getTeacherId()) : null;
-                    String groupId = auth.getGroupId() != null ? String.valueOf(auth.getGroupId()) : null;
-
-                    sessionManager.saveSession(userId, role,
-                            auth.getFirstName(), auth.getLastName(), auth.getPatronymic(),
-                            sessionManager.getEmail(), groupId, auth.getGroupName(),
-                            studentId, teacherId);
-
-                    UserDataSyncManager sync = new UserDataSyncManager(context);
-                    sync.refreshInBackground(userId, role);
-                    return true;
-                }
-            }
-        } catch (Exception ignored) {
-        }
-
-        sessionManager.clearSession();
-        RetrofitClient.clearTokens();
-        return false;
     }
 
     public String getUserId() {

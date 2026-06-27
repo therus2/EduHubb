@@ -31,7 +31,7 @@ public class SubjectDetailsFragment extends Fragment {
     private String subjectId;
     private String subjectName;
     private String teacherName;
-    private double average;
+    private float average;
     private int gradeCount;
 
     private TextView tvSubjectName;
@@ -55,7 +55,7 @@ public class SubjectDetailsFragment extends Fragment {
             subjectId = getArguments().getString("subjectId", "");
             subjectName = getArguments().getString("subjectName", "");
             teacherName = getArguments().getString("teacherName", "");
-            average = getArguments().getDouble("average", 0.0);
+            average = getArguments().getFloat("average", 0f);
             gradeCount = getArguments().getInt("gradeCount", 0);
         }
         return inflater.inflate(R.layout.fragment_subject_details, container, false);

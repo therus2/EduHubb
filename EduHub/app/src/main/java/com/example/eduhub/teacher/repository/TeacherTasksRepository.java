@@ -41,9 +41,9 @@ public class TeacherTasksRepository {
         return items;
     }
 
-    public List<SubmissionItem> getSubmissionsForAssignment(String assignmentId) {
+    public List<SubmissionItem> getSubmissionsForAssignment(String assignmentId, String groupId) {
         List<SubmissionItem> items = new ArrayList<>();
-        try (Cursor c = dbHelper.findSubmissionsForAssignmentWithDetailsRaw(assignmentId)) {
+        try (Cursor c = dbHelper.findSubmissionsForAssignmentWithDetailsRaw(assignmentId, groupId)) {
             while (c.moveToNext()) {
                 String completionId = c.getString(c.getColumnIndexOrThrow("completion_id"));
                 String studentId = c.getString(c.getColumnIndexOrThrow("student_id"));

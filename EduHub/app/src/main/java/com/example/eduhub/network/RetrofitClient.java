@@ -142,6 +142,15 @@ public class RetrofitClient {
                                 String newRefresh = json.has("refreshToken") ? json.get("refreshToken").getAsString() : null;
                                 if (newAccess != null) {
                                     setTokens(newAccess, newRefresh);
+                                    com.example.eduhub.EduHubApp app = com.example.eduhub.EduHubApp.getInstance();
+                                    if (app != null) {
+                                        com.example.eduhub.network.session.UserSessionManager
+                                                .getInstance(app).saveToken(newAccess);
+                                        if (newRefresh != null) {
+                                            com.example.eduhub.network.session.UserSessionManager
+                                                    .getInstance(app).saveRefreshToken(newRefresh);
+                                        }
+                                    }
                                 }
                             }
 

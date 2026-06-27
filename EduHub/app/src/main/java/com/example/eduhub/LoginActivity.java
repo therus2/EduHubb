@@ -35,10 +35,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (restoreExistingSession()) {
-            return;
-        }
-
         setContentView(R.layout.login_scrin);
 
         TextInputEditText etEmail = findViewById(R.id.et_email);
@@ -48,33 +44,41 @@ public class LoginActivity extends AppCompatActivity {
         TextView tvApiServer = findViewById(R.id.tv_api_server);
         tvApiServer.setText("Сервер: " + ApiConfig.BASE_URL);
 
-        btnLogin.setOnClickListener(v -> {
-            String email = etEmail.getText().toString().trim();
-            String password = etPassword.getText().toString().trim();
+        showLoading(true);
 
-            if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Введите email и пароль", Toast.LENGTH_SHORT).show();
-                return;
-            }
+        authManager.restoreExistingSession(
+            () -> runOnUiThread(() -> navigateAfterLogin(authManager.getUserId(), authManager.getRole())),
+            () -> runOnUiThread(() -> {
+                showLoading(false);
+                btnLogin.setOnClickListener(v -> {
+                    String email = etEmail.getText().toString().trim();
+                    String password = etPassword.getText().toString().trim();
 
-            showLoading(true);
-            authManager.login(email, password, new AuthManager.AuthCallback() {
-                @Override
-                public void onSuccess(String userId, String role) {
-                    runOnUiThread(() -> {
-                        navigateAfterLogin(userId, role);
+                    if (email.isEmpty() || password.isEmpty()) {
+                        Toast.makeText(this, "Введите email и пароль", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    showLoading(true);
+                    authManager.login(email, password, new AuthManager.AuthCallback() {
+                        @Override
+                        public void onSuccess(String userId, String role) {
+                            runOnUiThread(() -> {
+                                navigateAfterLogin(userId, role);
+                            });
+                        }
+
+                        @Override
+                        public void onFailure(String errorMessage) {
+                            runOnUiThread(() -> {
+                                showLoading(false);
+                                Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                            });
+                        }
                     });
-                }
-
-                @Override
-                public void onFailure(String errorMessage) {
-                    runOnUiThread(() -> {
-                        showLoading(false);
-                        Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                    });
-                }
-            });
-        });
+                });
+            })
+        );
     }
 
     private void showLoading(boolean loading) {
@@ -84,13 +88,6 @@ public class LoginActivity extends AppCompatActivity {
         if (btnLogin != null) {
             btnLogin.setEnabled(!loading);
         }
-    }
-
-    private boolean restoreExistingSession() {
-        if (authManager.restoreExistingSession()) {
-            return navigateAfterLogin(authManager.getUserId(), authManager.getRole());
-        }
-        return false;
     }
 
     private boolean navigateAfterLogin(String userId, String role) {

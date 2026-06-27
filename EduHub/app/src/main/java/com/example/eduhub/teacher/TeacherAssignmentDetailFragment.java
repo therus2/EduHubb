@@ -2,6 +2,7 @@ package com.example.eduhub.teacher;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import com.example.eduhub.teacher.models.AssignmentWithStatsItem;
 import com.example.eduhub.teacher.models.SubmissionItem;
 import com.example.eduhub.teacher.repository.TeacherTasksRepository;
 import com.example.eduhub.network.sync.DataSyncEvents;
+import com.example.eduhub.network.sync.UserDataSyncManager;
+import com.example.eduhub.network.util.ApiMapUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +68,7 @@ public class TeacherAssignmentDetailFragment extends Fragment implements DataSyn
         if (args != null) {
             assignmentId = args.getString(ARG_ASSIGNMENT_ID);
             groupId = args.getString(ARG_GROUP_ID);
+            groupId = ApiMapUtils.normalizeId(groupId);
             teacherId = args.getString(ARG_TEACHER_ID);
         }
 
@@ -103,8 +107,23 @@ public class TeacherAssignmentDetailFragment extends Fragment implements DataSyn
         if (btnDelete != null) btnDelete.setOnClickListener(v -> showDeleteConfirm());
 
         loadData();
+        syncGroupStudents();
 
         return view;
+    }
+
+    private void syncGroupStudents() {
+        new Thread(() -> {
+            try {
+                UserDataSyncManager syncManager = new UserDataSyncManager(requireContext());
+                syncManager.syncGroupStudents(groupId);
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(this::loadData);
+                }
+            } catch (Exception e) {
+                Log.w("TeacherAssignDetail", "syncGroupStudents failed", e);
+            }
+        }).start();
     }
 
     @Override
@@ -201,7 +220,9 @@ public class TeacherAssignmentDetailFragment extends Fragment implements DataSyn
         tvDueDate.setText("Сдать до " + (assignment.getDueDate() != null ? assignment.getDueDate() : "—"));
         tvDescription.setText(assignment.getDescription());
 
-        allSubmissions = repo.getSubmissionsForAssignment(assignmentId);
+        allSubmissions = repo.getSubmissionsForAssignment(assignmentId, groupId);
+        Log.d("AssignmentDetail", "loadData: allSubmissions.size=" + allSubmissions.size()
+                + " assignmentId=" + assignmentId + " groupId=" + groupId);
 
         int total = allSubmissions.size();
         int submitted = 0, completed = 0, notStarted = 0;
@@ -365,7 +386,7 @@ public class TeacherAssignmentDetailFragment extends Fragment implements DataSyn
     }
 
     private void refreshData() {
-        allSubmissions = repo.getSubmissionsForAssignment(assignmentId);
+        allSubmissions = repo.getSubmissionsForAssignment(assignmentId, groupId);
         loadData();
     }
 

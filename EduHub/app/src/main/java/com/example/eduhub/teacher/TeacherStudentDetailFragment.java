@@ -1,6 +1,7 @@
 package com.example.eduhub.teacher;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eduhub.R;
+import com.example.eduhub.network.session.UserSessionManager;
+import com.example.eduhub.network.sync.UserDataSyncManager;
 import com.example.eduhub.teacher.models.AttendanceDetailItem;
 import com.example.eduhub.teacher.models.GradeDetailItem;
 import com.example.eduhub.teacher.repository.TeacherStudentRepository;
@@ -45,8 +48,11 @@ public class TeacherStudentDetailFragment extends Fragment {
             groupName = args.getString("groupName", "");
             teacherId = args.getString("teacherId");
         }
+        if (teacherId == null || teacherId.isEmpty()) {
+            teacherId = UserSessionManager.getInstance(requireContext()).getTeacherId();
+        }
 
-        repository = new TeacherStudentRepository(requireContext(), teacherId);
+        repository = new TeacherStudentRepository(requireContext());
 
         TextView tvName = view.findViewById(R.id.tv_student_name);
         tvName.setText(studentName);
@@ -69,7 +75,26 @@ public class TeacherStudentDetailFragment extends Fragment {
 
         setGradesTab(true);
 
+        syncStudentData();
+
         return view;
+    }
+
+    private void syncStudentData() {
+        new Thread(() -> {
+            try {
+                UserDataSyncManager syncManager = new UserDataSyncManager(requireContext());
+                syncManager.syncStudentData(studentId);
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(() -> {
+                        if (showingGrades) showGradesList();
+                        else showAttendanceList();
+                    });
+                }
+            } catch (Exception e) {
+                Log.w("TeacherStudentDetail", "syncStudentData failed", e);
+            }
+        }).start();
     }
 
     private void setGradesTab(boolean showGrades) {
